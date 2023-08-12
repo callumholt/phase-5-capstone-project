@@ -10,48 +10,65 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_07_14_212913) do
+ActiveRecord::Schema.define(version: 2023_08_10_090549) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "dogs", force: :cascade do |t|
-    t.integer "id_of_dog"
-    t.string "primary_key"
-    t.integer "id_of_owner"
-    t.text "name_of_dog"
-    t.integer "age_of_dog"
-    t.text "breed_of_dog"
-    t.text "bio_of_dog"
-    t.integer "location_postCode"
-    t.text "dates_require_dogSitting"
+  create_table "days", force: :cascade do |t|
+    t.bigint "workout_id", null: false
+    t.integer "dayNumber"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "owner_id"
+    t.index ["workout_id"], name: "index_days_on_workout_id"
   end
 
-  create_table "dogs_users", id: false, force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "dog_id", null: false
-    t.index ["dog_id", "user_id"], name: "index_dogs_users_on_dog_id_and_user_id"
-    t.index ["user_id", "dog_id"], name: "index_dogs_users_on_user_id_and_dog_id"
-  end
-
-  create_table "owners", force: :cascade do |t|
+  create_table "exercises", force: :cascade do |t|
+    t.bigint "day_id", null: false
     t.string "name"
-    t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["day_id"], name: "index_exercises_on_day_id"
+  end
+
+  create_table "sets_completeds", force: :cascade do |t|
+    t.bigint "exercise_id", null: false
+    t.decimal "weight"
+    t.integer "reps"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["exercise_id"], name: "index_sets_completeds_on_exercise_id"
+  end
+
+  create_table "sets_prescribeds", force: :cascade do |t|
+    t.bigint "exercise_id", null: false
+    t.decimal "weight"
+    t.integer "reps"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["exercise_id"], name: "index_sets_prescribeds_on_exercise_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.text "name"
-    t.text "bio"
-    t.integer "postcode"
+    t.string "name"
+    t.string "email"
+    t.string "password"
+    t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "username"
-    t.string "password_digest"
   end
 
+  create_table "workouts", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_workouts_on_user_id"
+  end
+
+  add_foreign_key "days", "workouts"
+  add_foreign_key "exercises", "days"
+  add_foreign_key "sets_completeds", "exercises"
+  add_foreign_key "sets_prescribeds", "exercises"
+  add_foreign_key "workouts", "users"
 end

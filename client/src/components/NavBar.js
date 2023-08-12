@@ -19,9 +19,9 @@ function NavBar({ user, setUser }) {
         {user ? (
           <>
             <button onClick={handleLogoutClick}>Logout</button>
-            <Link to="/dogs">Dog Profiles</Link>
-            <Link to="/updatedog">Update Dog</Link>
-            <Link to="/newdog">Create New Dog</Link>
+            <Link to="/workouts">Workout Here</Link>
+            {/* <Link to="/updatedog">Update Dog</Link>
+            <Link to="/newdog">Create New Dog</Link> */}
           </>
         ) : (
           <>

@@ -1,6 +1,14 @@
 Rails.application.routes.draw do
+
+  resources :sets_completeds
+  resources :sets_prescribeds
+    # resources :dogs, only: [:index, :show, :create, :destroy, :update]
+
   
-  resources :dogs, only: [:index, :show, :create, :destroy, :update]
+  resources :exercise_sets
+  resources :exercises
+  resources :days
+  resources :workouts
   resources :users, only: [:index]
   resources :users, only: [:show]
 
@@ -13,16 +21,22 @@ Rails.application.routes.draw do
 
   delete '/logout', to: 'sessions#destroy'
 
-  get '/dogs', to: 'dogs#index'
+  get '/workouts', to: 'workouts#index'
 
-  get '/dogs/:id', to: 'dogs#show'
 
-  patch '/dogs/:id', to: 'dogs#update'
 
-  post '/dogs', to: 'dogs#create'
+# BELOW HERE ARE THE DOG SPECIFIC
 
-  delete '/dogs', to: 'dogs#destroy'
+  # get '/dogs', to: 'dogs#index'
 
-  get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
+  # get '/dogs/:id', to: 'dogs#show'
+
+  # patch '/dogs/:id', to: 'dogs#update'
+
+  # post '/dogs', to: 'dogs#create'
+
+  # delete '/dogs', to: 'dogs#destroy'
+
+  # get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
 
 end

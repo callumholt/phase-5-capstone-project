@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { redirect } from "react-router-dom";
 
 function SignUp({ setUser }) {
-  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
 
@@ -15,7 +17,8 @@ function SignUp({ setUser }) {
       },
       body: JSON.stringify({
         user: {
-          username,
+          name,
+          email,
           password,
           password_confirmation: passwordConfirmation,
         },
@@ -36,13 +39,21 @@ function SignUp({ setUser }) {
     <div>
       <form onSubmit={handleSubmit}>
         <h1>Sign Up</h1>
-        <label htmlFor="username">Username</label>
+        <label htmlFor="name">Name</label>
         <input
           type="text"
-          id="username"
+          id="name"
           autoComplete="off"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <label htmlFor="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          autoComplete="off"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <label htmlFor="password">Password</label>
         <input

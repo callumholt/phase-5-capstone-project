@@ -28,7 +28,7 @@ class UsersController < ApplicationController
 
             session[:current_user_id] = @user.id
 
-            render json: {username: @user.username}
+            render json: {name: @user.name}
 
             puts "this is the @user after the render: #{@user.attributes}"
 
@@ -43,7 +43,7 @@ class UsersController < ApplicationController
 
     private
     def user_params
-        params.require(:user).permit(:postcode, :bio, :name, :username, :password, :password_confirmation)
+        params.require(:user).permit(:email, :postcode, :bio, :name, :username, :password, :password_confirmation)
     end
 
 

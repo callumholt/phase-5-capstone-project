@@ -4,9 +4,9 @@ import SignUp from "./SignUp";
 import Login from "./Login";
 import NavBar from "./NavBar";
 import Home from "./Home";
-import DogProfiles from "./DogProfiles";
-import Newdog from "./NewDog";
-import Updatedog from "./UpdateDog";
+import WorkoutProfiles from "./WorkoutProfiles";
+import Newdog from "./OLDNewDog";
+import Updatedog from "./OLDUpdateDog";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -32,7 +32,7 @@ function App() {
           {user ? (
             <>
               <Route path="/" element={<Home user={user} />} />
-              <Route path="/dogs" element={<DogProfiles />} />
+              <Route path="/workouts" element={<WorkoutProfiles />} />
               <Route path="/newdog" element={<Newdog />} />
               <Route path="/updatedog" element={<Updatedog />} />
             </>
@@ -41,6 +41,7 @@ function App() {
               <Route path="/signup" element={<SignUp setUser={setUser} />} />
               <Route path="/login" element={<Login setUser={setUser} />} />
               <Route path="/" element={<Home />} />
+              <Route path="/workouts" element={<WorkoutProfiles />} />
             </>
           )}
         </Routes>

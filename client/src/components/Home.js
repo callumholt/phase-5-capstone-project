@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import SignUp from "./SignUp";
 import Login from "./Login";
 import NavBar from "./NavBar";
-import DogProfiles from "./DogProfiles";
+import WorkoutProfiles from "./WorkoutProfiles";
 
 function Home({ user }) {
   console.log("the user inside the HOME COMP is:", user);
@@ -11,7 +11,7 @@ function Home({ user }) {
   if (user) {
     return (
       <>
-        <h1>Welcome, {user.username}!</h1>
+        <h1>Welcome, {user.name}!</h1>
       </>
     );
   } else {
