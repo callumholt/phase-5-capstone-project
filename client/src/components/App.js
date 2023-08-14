@@ -7,6 +7,7 @@ import Home from "./Home";
 import WorkoutProfiles from "./WorkoutProfiles";
 import Newdog from "./OLDNewDog";
 import Updatedog from "./OLDUpdateDog";
+import NewWorkout from "./NewWorkout";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -35,6 +36,7 @@ function App() {
               <Route path="/workouts" element={<WorkoutProfiles />} />
               <Route path="/newdog" element={<Newdog />} />
               <Route path="/updatedog" element={<Updatedog />} />
+              <Route path="/NewWorkout" element={<NewWorkout />} />
             </>
           ) : (
             <>

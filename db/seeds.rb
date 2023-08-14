@@ -24,7 +24,7 @@ user = User.create!(
 # Create Workout
 workout = Workout.create!(
   user_id: user.id,
-  name: 'My Workout'
+  name: "User: #{user.name} - Workout"
 )
 
 # Create Days and Exercises

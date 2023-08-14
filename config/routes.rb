@@ -23,6 +23,11 @@ Rails.application.routes.draw do
 
   get '/workouts', to: 'workouts#index'
 
+  post '/workouts', to: 'workouts#create'
+
+  post '/users', to: 'users#create'
+
+
 
 
 # BELOW HERE ARE THE DOG SPECIFIC

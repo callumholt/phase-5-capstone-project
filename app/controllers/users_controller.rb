@@ -19,10 +19,12 @@ class UsersController < ApplicationController
     end
       
 
-    def create 
+    def create
+        puts "the user_params are: #{user_params}"
         @user = User.create(user_params)
         puts "the user_params that got created is: #{user_params}"
 
+        # {id: 8, name: "Bimbo Holt", email: "bob@example.com", password: "abc123}"
 
         if @user.save
 
@@ -31,8 +33,6 @@ class UsersController < ApplicationController
             render json: {name: @user.name}
 
             puts "this is the @user after the render: #{@user.attributes}"
-
-            # render json: @user.attributes
 
         else
             puts "Validation Errors: #{@user.errors.full_messages}"
@@ -43,9 +43,9 @@ class UsersController < ApplicationController
 
     private
     def user_params
-        params.require(:user).permit(:email, :postcode, :bio, :name, :username, :password, :password_confirmation)
+        params.permit(:email, :postcode, :bio, :name, :user, :password, :password_confirmation)
     end
 
-
+    # require(:user)
 
 end
