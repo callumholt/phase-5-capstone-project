@@ -5,8 +5,6 @@ import Login from "./Login";
 import NavBar from "./NavBar";
 import Home from "./Home";
 import WorkoutProfiles from "./WorkoutProfiles";
-import Newdog from "./OLDNewDog";
-import Updatedog from "./OLDUpdateDog";
 import NewWorkout from "./NewWorkout";
 
 function App() {
@@ -34,8 +32,6 @@ function App() {
             <>
               <Route path="/" element={<Home user={user} />} />
               <Route path="/workouts" element={<WorkoutProfiles />} />
-              <Route path="/newdog" element={<Newdog />} />
-              <Route path="/updatedog" element={<Updatedog />} />
               <Route path="/NewWorkout" element={<NewWorkout />} />
             </>
           ) : (
