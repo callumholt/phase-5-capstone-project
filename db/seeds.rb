@@ -6,12 +6,13 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-User.destroy_all
-Workout.destroy_all
-Day.destroy_all
+SetsCompleted.destroy_all
+SetsPrescribed.destroy_all
 Exercise.destroy_all
-SetsPrescribed.destroy_all  # Update to the appropriate name if you've renamed the table
-SetsCompleted.destroy_all  # Update to the appropriate name if you've renamed the table
+Day.destroy_all
+Workout.destroy_all
+User.destroy_all
+
 
 # Create Users
 user = User.create!(
