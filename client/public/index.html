@@ -25,21 +25,18 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>React App</title>
+    <!-- Include the Botpress Webchat scripts -->
     <script src="https://cdn.botpress.cloud/webchat/v0/inject.js"></script>
     <script
       src="https://mediafiles.botpress.cloud/78386df1-424a-4523-8241-cd96e0918e8c/webchat/config.js"
       defer
     ></script>
+
+    <style>
+      /* Add any custom CSS styles for your embedded window here */
+    </style>
   </head>
   <body>
-    <div id="webchat-container"></div>
-
-    <script src="https://cdn.botpress.cloud/webchat/v0/inject.js"></script>
-    <script
-      src="https://mediafiles.botpress.cloud/78386df1-424a-4523-8241-cd96e0918e8c/webchat/config.js"
-      defer
-    ></script>
-
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <!--
@@ -52,5 +49,26 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+
+    <!-- The container element where the webchat will be embedded -->
+    <div id="webchat-container"></div>
+
+    <script>
+      // You can customize and configure the webchat here
+      // For example, you can change the target element, theme, etc.
+      window.addEventListener("DOMContentLoaded", () => {
+        const webchatContainer = document.getElementById("webchat-container");
+
+        // Customize the channel or other settings as needed
+        const settings = {
+          host: "https://mediafiles.botpress.cloud/78386df1-424a-4523-8241-cd96e0918e8c/webchat",
+          channel: "my-channel",
+          // ... other settings ...
+        };
+
+        // Initialize the webchat
+        WebChat.default.init(settings, webchatContainer);
+      });
+    </script>
   </body>
 </html>
