@@ -86,18 +86,3 @@ puts "SetsCompleted count: #{SetsCompleted.count}"  # Update to the appropriate 
 
 puts "Data seeding complete!"
 
-# Example of a workout
-# Day 1:
-# Exercise: Back Squats
-# - Prescribed Sets:
-#   1. Weight: 80.0, Reps: 3
-#   2. Weight: 85.0, Reps: 3
-#   3. Weight: 90.0, Reps: 3
-#
-# Exercise: Romanian Deadlifts
-# - Prescribed Sets:
-#   1. Weight: 100.0, Reps: 5
-#   2. Weight: 105.0, Reps: 5
-#
-# Day 2:
-# ...

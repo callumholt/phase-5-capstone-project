@@ -24,7 +24,6 @@ class UsersController < ApplicationController
         @user = User.create(user_params)
         puts "the user_params that got created is: #{user_params}"
 
-        # {id: 8, name: "Bimbo Holt", email: "bob@example.com", password: "abc123}"
 
         if @user.save
 
@@ -43,7 +42,7 @@ class UsersController < ApplicationController
 
     private
     def user_params
-        params.permit(:email, :postcode, :bio, :name, :user, :password, :password_confirmation)
+        params.permit(:email, :name, :password, :password_confirmation)
     end
 
     # require(:user)

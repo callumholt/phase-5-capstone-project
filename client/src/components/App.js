@@ -9,7 +9,7 @@ import NewWorkout from "./NewWorkout";
 
 function App() {
   const [user, setUser] = useState(null);
-  console.log("the user when inside the app func: ", user);
+  // console.log("the user when inside the app func: ", user);
 
   useEffect(() => {
     // auto-login
@@ -21,7 +21,7 @@ function App() {
     });
   }, []);
 
-  console.log("the user when outside the app func is: ", user);
+  // console.log("the user when outside the app func is: ", user);
 
   return (
     <>
@@ -31,7 +31,10 @@ function App() {
           {user ? (
             <>
               <Route path="/" element={<Home user={user} />} />
-              <Route path="/workouts" element={<WorkoutProfiles />} />
+              <Route
+                path="/workouts"
+                element={<WorkoutProfiles user={user} />}
+              />
               <Route path="/NewWorkout" element={<NewWorkout />} />
             </>
           ) : (
@@ -39,7 +42,6 @@ function App() {
               <Route path="/signup" element={<SignUp setUser={setUser} />} />
               <Route path="/login" element={<Login setUser={setUser} />} />
               <Route path="/" element={<Home />} />
-              <Route path="/workouts" element={<WorkoutProfiles />} />
             </>
           )}
         </Routes>

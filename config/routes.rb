@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :exercise_sets
   resources :exercises
   resources :days
-  resources :workouts
+  resources :workouts 
   resources :users, only: [:index]
   resources :users, only: [:show]
 
@@ -21,12 +21,13 @@ Rails.application.routes.draw do
 
   delete '/logout', to: 'sessions#destroy'
 
-  get '/workouts', to: 'workouts#index'
+  # get '/workouts', to: 'workouts#index'
 
   post '/workouts', to: 'workouts#create'
 
   post '/users', to: 'users#create'
 
+  get '/workouts/:id', to: 'workouts#show'
 
 
 
