@@ -1,5 +1,5 @@
 class WorkoutsController < ApplicationController
-  before_action :set_workout, only: [:show, :update, :destroy]
+  # before_action :set_workout, only: [:show, :update, :destroy]
 
   # GET /workouts
   
@@ -10,6 +10,29 @@ class WorkoutsController < ApplicationController
   #   render json: @workouts, include: {day: { include: :exercises } }
   # end
 
+# DELETE /workouts/1
+  
+def destroy
+  workout = Workout.find_by(user_id: params[:id])
+  puts "the id of user is: #{workout.user_id}"
+  associated_days = workout.day
+  associated_exercises = Day.where(workout: workout).joins(:exercises)
+
+  if !associated_days.empty? && !associated_exercises.empty?
+    puts "Cannot delete the workout because it has associated days and exercises."
+    head :unprocessable_entity # Or you can choose an appropriate HTTP status code
+  elsif !associated_days.empty?
+    puts "Cannot delete the workout because it has associated days."
+    head :unprocessable_entity # Or you can choose an appropriate HTTP status code
+  elsif !associated_exercises.empty?
+    puts "Cannot delete the workout because it has associated exercises."
+    head :unprocessable_entity # Or you can choose an appropriate HTTP status code
+  else
+    workout.destroy
+    puts "The workout has been successfully deleted."
+    head :no_content
+  end
+end
 
   
   def show
@@ -75,8 +98,8 @@ class WorkoutsController < ApplicationController
         exercise_data["prescribed_sets"].each do |set_data|
           SetsPrescribed.create!(
             exercise_id: exercise.id, # Use exercise.id instead of prescribed_sets.id
-            weight: set_data["Weight"], # Use set_data to access the weight
-            reps: set_data["Reps"] # Use set_data to access the reps
+            weight: set_data["weight"], # Use set_data to access the weight
+            reps: set_data["reps"] # Use set_data to access the reps
           )
         end
         
@@ -94,10 +117,7 @@ class WorkoutsController < ApplicationController
     end
   end
 
-  # DELETE /workouts/1
-  def destroy
-    @workout.destroy
-  end
+  
 
  
 end

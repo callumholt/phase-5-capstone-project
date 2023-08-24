@@ -20,6 +20,8 @@ class SetsCompletedsController < ApplicationController
     if @sets_completed.save
       render json: @sets_completed, status: :created, location: @sets_completed
     else
+      puts @sets_completed.errors.full_messages
+
       render json: @sets_completed.errors, status: :unprocessable_entity
     end
   end

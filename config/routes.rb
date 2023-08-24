@@ -21,13 +21,20 @@ Rails.application.routes.draw do
 
   delete '/logout', to: 'sessions#destroy'
 
-  # get '/workouts', to: 'workouts#index'
-
   post '/workouts', to: 'workouts#create'
 
   post '/users', to: 'users#create'
 
   get '/workouts/:id', to: 'workouts#show'
+
+  delete '/workouts/:id', to: 'workouts#destroy'
+
+  get '/sets_completeds', to: 'sets_completeds#index'
+
+  post '/sets_completeds', to: 'sets_completeds#create'
+
+
+
 
 
 

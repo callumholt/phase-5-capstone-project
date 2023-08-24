@@ -1,3 +1,3 @@
 class ExerciseSet < ApplicationRecord
-  belongs_to :exercise
+  belongs_to :exercise, dependent: :destroy
 end
