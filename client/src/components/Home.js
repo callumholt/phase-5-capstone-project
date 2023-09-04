@@ -12,6 +12,7 @@ function Home({ user }) {
     return (
       <>
         <h1>Welcome, {user.name}!</h1>
+        <h1>Your user id is, {user.id}!</h1>
       </>
     );
   } else {

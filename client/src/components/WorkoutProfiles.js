@@ -12,39 +12,33 @@ function WorkoutProfiles({ user }) {
   });
 
   const [error, setError] = useState(null);
-
-  //new code
   const [currentWeight, setCurrentWeight] = useState("");
   const [currentReps, setCurrentReps] = useState("");
-  // new code above
+  const [completedSets, setCompletedSets] = useState([]);
 
   console.log("(1)the user inside the workoutProfiles COMP is:", user);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        console.log("(2)the user.id that goes into the fetch is:", user.id);
+  const fetchData = async () => {
+    try {
+      console.log("(2)the user.id that goes into the fetch is:", user.id);
 
-        const response = await fetch(`/workouts/${user.id}`);
-        console.log("(3)the response from the fetch is:", response);
+      const response = await fetch(`/workouts/${user.id}`);
+      console.log("(3)the response from the fetch is:", response);
 
-        const data = await response.json();
-        console.log("(3.5)the response after getting json'ified:", data);
-        console.log(
-          "(3.75)the response after getting json'ified, type:",
-          typeof data
-        );
+      const data = await response.json();
+      console.log("(3.5)the response after getting json'ified:", data);
+      console.log(
+        "(3.75)the response after getting json'ified, type:",
+        typeof data
+      );
 
-        setWorkout(data);
-        console.log("(4)the workout after being set is:", workout);
-      } catch (error) {
-        console.error("Error fetching workout data:", error);
-        setError("An error occurred while fetching workout data.");
-      }
-    };
-
-    fetchData();
-  }, [user.id]);
+      setWorkout(data);
+      console.log("(4)the workout after being set is:", workout);
+    } catch (error) {
+      console.error("Error fetching workout data:", error);
+      setError("An error occurred while fetching workout data.");
+    }
+  };
 
   console.log("(6)the workoutName after the if array is:", workout);
 
@@ -52,7 +46,9 @@ function WorkoutProfiles({ user }) {
     console.log("Workout state has changed:", workout);
   }, [workout]);
 
-  // new code below here:
+  useEffect(() => {
+    fetchData();
+  }, [user.id]);
 
   const handleSetChange = (e) => {
     if (e.target.name === "weight") {
@@ -82,20 +78,40 @@ function WorkoutProfiles({ user }) {
         },
         body: JSON.stringify(setToSave),
       });
+
       if (response.status === 200) {
         console.log("Set saved successfully!");
-        // You can update the UI or show a success message here
+
+        // Create a copy of the current workout state
+        const updatedWorkout = { ...workout };
+
+        // Find the exercise in the workout
+        const updatedExercise =
+          updatedWorkout.day[dayIndex].exercises[exerciseIndex];
+
+        // Add the new completed set to the exercise's completed_sets
+        updatedExercise.completed_sets.push(setToSave);
+
+        // Update the state with the modified workout data
+        setWorkout(updatedWorkout);
+
+        // Clear the input fields
+        setCurrentWeight("");
+        setCurrentReps("");
+
+        //call the workout fetch again to refresh the page:
+
+        fetchData();
       } else {
         console.error("Error saving set:", response.statusText);
-        // Handle the error, show an error message, etc.
       }
     } catch (error) {
       console.error("Error saving set:", error);
+
       // Handle the error, show an error message, etc.
     }
+    fetchData();
   };
-
-  // new code above here.
 
   return (
     <div>
@@ -122,14 +138,22 @@ function WorkoutProfiles({ user }) {
                   <p>Reps: {set.reps}</p>
                   <p>Exercise ID: {exercise.id}</p>
 
-                  <p>Completed Weight:</p>
+                  <p
+                    style={{ fontWeight: "bold", textDecoration: "underline" }}
+                  >
+                    Completed Weight:
+                  </p>
                   <input
                     type="text"
                     name="weight"
                     value={currentWeight}
                     onChange={handleSetChange}
                   />
-                  <p>Completed Reps:</p>
+                  <p
+                    style={{ fontWeight: "bold", textDecoration: "underline" }}
+                  >
+                    Completed Reps:
+                  </p>
                   <input
                     type="text"
                     name="reps"
@@ -148,6 +172,20 @@ function WorkoutProfiles({ user }) {
                   >
                     Save
                   </button>
+                  {exercise.completed_sets.map((completedSet, index) => (
+                    <div key={index}>
+                      <p
+                        style={{
+                          fontWeight: "bold",
+                          textDecoration: "underline",
+                        }}
+                      >
+                        Completed Set {index + 1}:
+                      </p>
+                      <p>Weight: {completedSet.weight}</p>
+                      <p>Reps: {completedSet.reps}</p>
+                    </div>
+                  ))}
                 </div>
               ))}
             </div>
@@ -160,35 +198,28 @@ function WorkoutProfiles({ user }) {
 
 export default WorkoutProfiles;
 
-//This is working below:
+// useEffect(() => {
+//   const fetchData = async () => {
+//     try {
+//       console.log("(2)the user.id that goes into the fetch is:", user.id);
 
-// return (
-//   <div>
-//     <h1>Workout Profile</h1>
-//     <h2>Workout ID: {workout.id}</h2>
-//     <h2>Workout Name: {workout.name}</h2>
+//       const response = await fetch(`/workouts/${user.id}`);
+//       console.log("(3)the response from the fetch is:", response);
 
-//     {/* Render the "day" information */}
-//     {workout.day.map((day) => (
-//       <div key={day.id}>
-//         <h3>Day Number: {day.dayNumber}</h3>
+//       const data = await response.json();
+//       console.log("(3.5)the response after getting json'ified:", data);
+//       console.log(
+//         "(3.75)the response after getting json'ified, type:",
+//         typeof data
+//       );
 
-//         {/* Render exercises for the day */}
-//         {day.exercises.map((exercise) => (
-//           <div key={exercise.id}>
-//             <h4>Exercise: {exercise.name}</h4>
+//       setWorkout(data);
+//       console.log("(4)the workout after being set is:", workout);
+//     } catch (error) {
+//       console.error("Error fetching workout data:", error);
+//       setError("An error occurred while fetching workout data.");
+//     }
+//   };
 
-//             {/* Render prescribed sets for the exercise */}
-//             {exercise.prescribed_sets.map((set) => (
-//               <div key={set.id}>
-//                 <p>Weight: {set.weight}</p>
-//                 <p>Reps: {set.reps}</p>
-//               </div>
-//             ))}
-//           </div>
-//         ))}
-//       </div>
-//     ))}
-//   </div>
-// );
-// }
+//   fetchData();
+// }, [user.id]);

@@ -19,6 +19,7 @@ class SetsCompletedsController < ApplicationController
 
     if @sets_completed.save
       render json: @sets_completed, status: :created, location: @sets_completed
+      puts "successfully saved the set"
     else
       puts @sets_completed.errors.full_messages
 

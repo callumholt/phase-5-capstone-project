@@ -37,11 +37,11 @@ end
   
   def show
 
-    @workout = Workout.includes(day: { exercises: :prescribed_sets }).find_by(user_id: params[:id])
+    @workout = Workout.includes(day: { exercises: [:prescribed_sets, :completed_sets] }).find_by(user_id: params[:id])
 
-     puts "here is the workout data inside show: #{ActiveModelSerializers::SerializableResource.new(@workout, include: { day: { include: { exercises: { include: :prescribed_sets } } } }).as_json}"
+    puts "here is the workout data inside show: #{ActiveModelSerializers::SerializableResource.new(@workout, include: { day: { include: { exercises: {include: [:prescribed_sets, :completed_sets] } } } }).as_json}"
 
-    render json: @workout,include: { day: { exercises: :prescribed_sets } }
+    render json: @workout,include: { day: { exercises: [:prescribed_sets, :completed_sets] } }
 
   end
   

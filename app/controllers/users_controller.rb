@@ -29,9 +29,9 @@ class UsersController < ApplicationController
 
             session[:current_user_id] = @user.id
 
-            render json: {name: @user.name}
+            render json: {name: @user.name, id: @user.id}
 
-            puts "this is the @user after the render: #{@user.attributes}"
+            puts "this is the @user and @id after the render: #{@user.name} and #{@user.id}"
 
         else
             puts "Validation Errors: #{@user.errors.full_messages}"
