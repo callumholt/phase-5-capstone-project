@@ -82,3 +82,4 @@ test:
 production:
   <<: *default
   url: <%= ENV['DATABASE_URL'] %>
+  OPEN_AI_KEY: <%= ENV['OPEN_AI_KEY'] %>
