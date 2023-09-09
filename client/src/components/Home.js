@@ -23,11 +23,11 @@ function Home({ user }) {
     e.preventDefault();
 
     const API_URL = "https://api.openai.com/v1/chat/completions";
-    const api_key = process.env.OPEN_AI_KEY
+    const api_key = process.env.OPEN_AI_KEY;
 
     const headers = {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${API_KEY}`,
+      Authorization: `Bearer ${api_key}`,
     };
 
     const prompt = `Create a workout plan for ${formData.sessionsPerWeek} days per week, each session lasting ${formData.sessionDuration} minutes, considering the user is a ${formData.experience} with the following injuries: ${formData.injuries}.`;
@@ -40,11 +40,13 @@ function Home({ user }) {
         headers: headers,
         body: JSON.stringify({
           model: "gpt-3.5-turbo",
-          messages = [
-            { role: 'system', content: 'You are a helpful assistant.' },
-            { role: 'user', content: 'can you make me a list of 3 country names' }
-          ]
-          ,
+          messages: [
+            { role: "system", content: "You are a helpful assistant." },
+            {
+              role: "user",
+              content: "can you make me a list of 3 country names",
+            },
+          ],
           temperature: 1,
           max_tokens: 500,
           top_p: 1,
