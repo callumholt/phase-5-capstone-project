@@ -24,7 +24,7 @@ class UsersController < ApplicationController
         @user = User.create(user_params)
         puts "the user_params that got created is: #{user_params}"
         api_key = ENV['OPEN_AI_KEY']
-        pits "the openai api_key is: #{api_key}"
+        puts "the openai api_key is: #{api_key}"
 
 
         if @user.save
