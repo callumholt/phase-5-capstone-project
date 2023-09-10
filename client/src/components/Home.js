@@ -22,42 +22,14 @@ function Home({ user }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const API_URL = "https://api.openai.com/v1/chat/completions";
-    const api_key = process.env.OPEN_AI_KEY;
-    const rails_key = process.env.RAILS_MASTER_KEY;
-
-    console.log("the api key is:", api_key);
-    console.log("the rails_api key is:", rails_key);
-
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${api_key}`,
-    };
+    const openAiCall = "/workouts/openai";
 
     const prompt = `Create a workout plan for ${formData.sessionsPerWeek} days per week, each session lasting ${formData.sessionDuration} minutes, considering the user is a ${formData.experience} with the following injuries: ${formData.injuries}.`;
 
     const prompt2 = "say this is a test";
 
     try {
-      const response = await fetch(API_URL, {
-        method: "POST",
-        headers: headers,
-        body: JSON.stringify({
-          model: "gpt-3.5-turbo",
-          messages: [
-            { role: "system", content: "You are a helpful assistant." },
-            {
-              role: "user",
-              content: "can you make me a list of 3 country names",
-            },
-          ],
-          temperature: 1,
-          max_tokens: 500,
-          top_p: 1,
-          frequency_penalty: 0,
-          presence_penalty: 0,
-        }),
-      });
+      const response = await fetch(openAiCall);
 
       console.log("fetch sent");
 

@@ -3,7 +3,7 @@ require 'json'
 
 # Define the API endpoint and parameters
 url = URI('https://api.openai.com/v1/chat/completions')
-# api_key = ENV['OPEN_AI_KEY']
+api_key = ENV['OPEN_AI_KEY']
 
 
 puts "API Key: #{api_key}"
