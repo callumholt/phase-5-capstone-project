@@ -22,7 +22,7 @@ function Home({ user }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const openAiCall = "/workouts/openai";
+    const openAiCall = "/openai";
 
     const prompt = `Create a workout plan for ${formData.sessionsPerWeek} days per week, each session lasting ${formData.sessionDuration} minutes, considering the user is a ${formData.experience} with the following injuries: ${formData.injuries}.`;
 
