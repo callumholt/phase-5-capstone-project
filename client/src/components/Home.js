@@ -24,6 +24,8 @@ function Home({ user }) {
 
     const API_URL = "https://api.openai.com/v1/chat/completions";
     const api_key = process.env.OPEN_AI_KEY;
+    // const api_key = "";
+    console.log("the api key is:", api_key);
 
     const headers = {
       "Content-Type": "application/json",
