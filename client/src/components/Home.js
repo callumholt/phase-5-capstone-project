@@ -24,8 +24,10 @@ function Home({ user }) {
 
     const API_URL = "https://api.openai.com/v1/chat/completions";
     const api_key = process.env.OPEN_AI_KEY;
-    // const api_key = "";
+    const rails_key = process.env.RAILS_MASTER_KEY;
+
     console.log("the api key is:", api_key);
+    console.log("the rails_api key is:", rails_key);
 
     const headers = {
       "Content-Type": "application/json",
