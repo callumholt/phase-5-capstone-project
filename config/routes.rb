@@ -33,7 +33,7 @@ Rails.application.routes.draw do
 
   post '/sets_completeds', to: 'sets_completeds#create'
 
-  get '/openai', to: 'workouts#openAiCall'
+  post '/openai', to: 'workouts#openAiCall'
 
 
 

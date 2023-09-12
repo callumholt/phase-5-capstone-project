@@ -24,14 +24,18 @@ function Home({ user }) {
 
     const openAiCall = "/openai";
 
-    const prompt = `Create a workout plan for ${formData.sessionsPerWeek} days per week, each session lasting ${formData.sessionDuration} minutes, considering the user is a ${formData.experience} with the following injuries: ${formData.injuries}.`;
-
-    const prompt2 = "say this is a test";
-
     try {
-      const response = await fetch(openAiCall);
+      console.log("the formdata is:", formData);
+      const response = await fetch(openAiCall, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
       console.log("fetch sent");
+      console.log("the formdata after being sent is:", formData);
 
       if (!response.ok) {
         throw new Error(

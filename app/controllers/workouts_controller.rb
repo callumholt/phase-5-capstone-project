@@ -37,55 +37,7 @@ def destroy
   end
 end
 
-def openAiCall
-  url = URI('https://api.openai.com/v1/chat/completions')
-  api_key = ENV['OPEN_AI_KEY']
-  
-  
-  puts "API Key: #{api_key}"
-  
-  
-  headers = {
-    'Content-Type' => 'application/json',
-    'Authorization' => "Bearer #{api_key}"
-  }
-  
-  # Define the message parameters
-  messages = [
-    {
-      "role": "system",
-      "content": "Generate JSON data for a workout plan for a user with the details provided by the user.\n\nall exercises must have reps and weight.\n\nReturn the JSON data using the structure below as an example:\n\nPlease ensure you use different exercises than those in the example.\n\n{{\"user_id\": 4,\"name\":\"User: Bruce - Workout\",\"day\":[{\"id\":1,\"dayNumber\":1,\"exercises\":[{\"id\":1,\"name\":\"Bench Press\",\"prescribed_sets\":[{\"id\":1,\"weight\":\"80.0\",\"reps\":3},{\"id\":2,\"weight\":\"85.0\",\"reps\":3},{\"id\":3,\"weight\":\"90.0\",\"reps\":3}]},{\"id\":2,\"name\":\"Deadlift\",\"prescribed_sets\":[{\"id\":4,\"weight\":\"100.0\",\"reps\":5},{\"id\":5,\"weight\":\"105.0\",\"reps\":5}]}]},{\"id\":2,\"dayNumber\":2,\"exercises\":[{\"id\":3,\"name\":\"Back Squats\",\"prescribed_sets\":[{\"id\":6,\"weight\":\"80.0\",\"reps\":3},{\"id\":7,\"weight\":\"85.0\",\"reps\":3},{\"id\":8,\"weight\":\"90.0\",\"reps\":3}]},{\"id\":4,\"name\":\"Pull-Ups\",\"prescribed_sets\":[{\"id\":9,\"weight\":\"100.0\",\"reps\":5},{\"id\":10,\"weight\":\"105.0\",\"reps\":5}]}]},{\"id\":3,\"dayNumber\":3,\"exercises\":[{\"id\":5,\"name\":\"Push Press\",\"prescribed_sets\":[{\"id\":11,\"weight\":\"80.0\",\"reps\":3},{\"id\":12,\"weight\":\"85.0\",\"reps\":3},{\"id\":13,\"weight\":\"90.0\",\"reps\":3}]},{\"id\":6,\"name\":\"Barbell Rows\",\"prescribed_sets\":[{\"id\":14,\"weight\":\"100.0\",\"reps\":5},{\"id\":15,\"weight\":\"105.0\",\"reps\":5}]}]},{\"id\":4,\"dayNumber\":4,\"exercises\":[{\"id\":7,\"name\":\"Leg Press\",\"prescribed_sets\":[{\"id\":16,\"weight\":\"80.0\",\"reps\":3},{\"id\":17,\"weight\":\"85.0\",\"reps\":3},{\"id\":18,\"weight\":\"90.0\",\"reps\":3}]},{\"id\":8,\"name\":\"Chest Flyes\",\"prescribed_sets\":[{\"id\":19,\"weight\":\"100.0\",\"reps\":5},{\"id\":20,\"weight\":\"105.0\",\"reps\":5}]}]},{\"id\":5,\"dayNumber\":5,\"exercises\":[{\"id\":9,\"name\":\"Dumbbell Curls\",\"prescribed_sets\":[{\"id\":21,\"weight\":\"80.0\",\"reps\":3},{\"id\":22,\"weight\":\"85.0\",\"reps\":3},{\"id\":23,\"weight\":\"90.0\",\"reps\":3}]},{\"id\":10,\"name\":\"Tricep Dips\",\"prescribed_sets\":[{\"id\":24,\"weight\":\"100.0\",\"reps\":5},{\"id\":25,\"weight\":\"105.0\",\"reps\":5}]}]}]}}"
-    },
-    {
-      "role": "user",
-      "content": "Please create a workout designed for the user below:\n\nname: Bruce\nuser_id: 4\nFitness goals: gain muscle\nTraining experience: intermediate\nDays per week to train: 5\nTime for each training session: 60 minutes\nInjuries: tight hips\n"
-    }
-  ]
-  
-  
-  # Create the request
-  request = Net::HTTP::Post.new(url)
-  request.body = {
-    model: 'gpt-3.5-turbo',
-    messages: messages,
-    temperature: 1,
-    temperature: 1,
-    max_tokens: 500,
-    top_p: 1,
-    frequency_penalty: 0,
-    presence_penalty: 0
-  }.to_json
-  request.initialize_http_header(headers)
-  
-  # Send the request
-  response = Net::HTTP.start(url.host, url.port, use_ssl: true) do |http|
-    http.request(request)
-  end
-  
-  # Print the response
-  puts response.body
 
-end
   
   def show
 
@@ -102,10 +54,159 @@ end
     @workout = Workout.find(params[:id])
   end
 
+  def openAiCall
+
+    require 'json'
+
+    workoutCreateData = params 
+    userName = workoutCreateData["name"]
+    userId = workoutCreateData["userId"]
+    goal = workoutCreateData["goal"]
+    experience = workoutCreateData["experience"]
+    sessionsPerWeek = workoutCreateData["sessionsPerWeek"]
+    sessionDuration = workoutCreateData["sessionDuration"]
+    injuries = workoutCreateData["injuries"]
+  
+  
+    puts "this is the workoutCreateData: #{workoutCreateData}"
+    puts "this is the workoutCreateData username: #{userName}"
+    puts "this is the workoutCreateData userId: #{userId}"
+    puts "this is the workoutCreateData goal: #{goal}"
+    puts "this is the workoutCreateData sessionsPerWeek: #{sessionsPerWeek}"
+    puts "this is the workoutCreateData sessionDuration: #{sessionDuration}"
+    puts "this is the workoutCreateData injuries: #{injuries}"
+  
+  
+  
+  
+  
+    url = URI('https://api.openai.com/v1/chat/completions')
+    api_key2 = ENV['OPEN_AI_KEY']
+    
+    
+    puts "API Key: #{api_key2}"
+    
+    
+    headers = {
+      'Content-Type' => 'application/json',
+      'Authorization' => "Bearer #{api_key2}"
+    }
+    
+    # Define the message parameters
+    messages = [
+      {
+        "role": "system",
+        "content": "Generate JSON data for a workout plan for a user with the details provided by the user.\n\nall exercises must have reps and weight.\n\nReturn the JSON data using the structure below as an example:\n\nPlease ensure you use different exercises than those in the example.\n\n{{\"user_id\": 4,\"name\":\"User: Bruce - Workout\",\"day\":[{\"id\":1,\"dayNumber\":1,\"exercises\":[{\"id\":1,\"name\":\"Bench Press\",\"prescribed_sets\":[{\"id\":1,\"weight\":\"80.0\",\"reps\":3},{\"id\":2,\"weight\":\"85.0\",\"reps\":3},{\"id\":3,\"weight\":\"90.0\",\"reps\":3}]},{\"id\":2,\"name\":\"Deadlift\",\"prescribed_sets\":[{\"id\":4,\"weight\":\"100.0\",\"reps\":5},{\"id\":5,\"weight\":\"105.0\",\"reps\":5}]}]},{\"id\":2,\"dayNumber\":2,\"exercises\":[{\"id\":3,\"name\":\"Back Squats\",\"prescribed_sets\":[{\"id\":6,\"weight\":\"80.0\",\"reps\":3},{\"id\":7,\"weight\":\"85.0\",\"reps\":3},{\"id\":8,\"weight\":\"90.0\",\"reps\":3}]},{\"id\":4,\"name\":\"Pull-Ups\",\"prescribed_sets\":[{\"id\":9,\"weight\":\"100.0\",\"reps\":5},{\"id\":10,\"weight\":\"105.0\",\"reps\":5}]}]},{\"id\":3,\"dayNumber\":3,\"exercises\":[{\"id\":5,\"name\":\"Push Press\",\"prescribed_sets\":[{\"id\":11,\"weight\":\"80.0\",\"reps\":3},{\"id\":12,\"weight\":\"85.0\",\"reps\":3},{\"id\":13,\"weight\":\"90.0\",\"reps\":3}]},{\"id\":6,\"name\":\"Barbell Rows\",\"prescribed_sets\":[{\"id\":14,\"weight\":\"100.0\",\"reps\":5},{\"id\":15,\"weight\":\"105.0\",\"reps\":5}]}]},{\"id\":4,\"dayNumber\":4,\"exercises\":[{\"id\":7,\"name\":\"Leg Press\",\"prescribed_sets\":[{\"id\":16,\"weight\":\"80.0\",\"reps\":3},{\"id\":17,\"weight\":\"85.0\",\"reps\":3},{\"id\":18,\"weight\":\"90.0\",\"reps\":3}]},{\"id\":8,\"name\":\"Chest Flyes\",\"prescribed_sets\":[{\"id\":19,\"weight\":\"100.0\",\"reps\":5},{\"id\":20,\"weight\":\"105.0\",\"reps\":5}]}]},{\"id\":5,\"dayNumber\":5,\"exercises\":[{\"id\":9,\"name\":\"Dumbbell Curls\",\"prescribed_sets\":[{\"id\":21,\"weight\":\"80.0\",\"reps\":3},{\"id\":22,\"weight\":\"85.0\",\"reps\":3},{\"id\":23,\"weight\":\"90.0\",\"reps\":3}]},{\"id\":10,\"name\":\"Tricep Dips\",\"prescribed_sets\":[{\"id\":24,\"weight\":\"100.0\",\"reps\":5},{\"id\":25,\"weight\":\"105.0\",\"reps\":5}]}]}]}}"
+      },
+      {
+        "role": "user",
+        "content": "Please create a workout designed for the user below:\n\nname: #{userName}\nuser_id: #{userId}\nFitness goals: #{goal}\nTraining experience: #{experience}\nDays per week to train: #{sessionsPerWeek}\nTime for each training session: #{sessionDuration} minutes\nInjuries: #{injuries}\n and please make the response less than 450 tokens"
+      }
+    ]
+    
+    
+    # Create the request
+    request = Net::HTTP::Post.new(url)
+    request.body = {
+      model: 'gpt-3.5-turbo',
+      messages: messages,
+      temperature: 1,
+      max_tokens: 1000,
+      top_p: 1,
+      frequency_penalty: 0,
+      presence_penalty: 0
+    }.to_json
+    request.initialize_http_header(headers)
+    
+    # Send the request
+    response = Net::HTTP.start(url.host, url.port, use_ssl: true) do |http|
+      http.request(request)
+    end
+    
+    # Print the response
+    puts response.body
+  
+    response_data = JSON.parse(response.body)
+  
+    content = response_data['choices'][0]['message']['content']
+  
+    puts "this is the content from openAi: #{content}"
+
+    workout_data_hash = JSON.parse(content)
+  
+
+# create workout below:
+
+    workout_data = response.body 
+    puts "this is the workout_data: #{workout_data}"
+    puts "this is the workout_data_hash: #{workout_data_hash}"
+
+    puts "workout_data datatype: #{workout_data.class}" # returning string -> needs to be object
+
+    user_id = workout_data_hash["user_id"] 
+    puts "this is the user_id: #{user_id}"
+
+
+    user = User.find(user_id) 
+    puts "this is the user: #{user}"
+
+    create_workout(user, workout_data_hash)
+
+    render json: { message: "Workout created successfully!" }, status: :created
+  end
+
+  private
+
+  def create_workout(user, workout_data_hash)
+    puts "the user id inside the create workout funct: #{user.id}"
+    puts "the workout name inside the create workout funct: #{workout_data_hash["name"]}"
+    puts "the dayNumber is: #{workout_data_hash["day"]}"
+
+
+    workout = Workout.create!(
+      user_id: user.id,
+      name: workout_data_hash["name"]
+    )
+  
+    workout_data_hash["day"].each do |day_data|
+      day_number = day_data["dayNumber"]
+      puts "the dayNumber is: #{day_number}"
+
+      day = Day.create!(
+        workout_id: workout.id,
+        dayNumber: day_data["dayNumber"]
+      )
+    
+  
+      day_data["exercises"].each do |exercise_data|
+        exercise = Exercise.create!(
+          day_id: day.id,
+          name: exercise_data["name"] # Correct key to match JSON structure
+        )
+  
+        exercise_data["prescribed_sets"].each do |set_data|
+          SetsPrescribed.create!(
+            exercise_id: exercise.id, # Use exercise.id instead of prescribed_sets.id
+            weight: set_data["weight"], # Use set_data to access the weight
+            reps: set_data["reps"] # Use set_data to access the reps
+          )
+        end
+        
+      end
+    end
+  end
+  
+  end
+
 
   def create
 
     require 'json'
+
+
+
+
+
 
     workout_data = params 
     puts "this is the workout_data: #{workout_data}"
@@ -159,6 +260,7 @@ end
     end
   end
   
+  
 
   # PATCH/PUT /workouts/1
   def update
@@ -169,7 +271,3 @@ end
     end
   end
 
-  
-
- 
-end
