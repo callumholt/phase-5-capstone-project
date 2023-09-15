@@ -1,12 +1,27 @@
-import React, { useState } from "react";
-import { redirect } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { redirect, useHistory } from "react-router-dom";
 
-function SignUp({ setUser }) {
+function SignUp({ user, setUser }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [redirect, setRedirect] = useState(false);
 
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
+
+  useEffect(
+    (redirect) => {
+      console.log("inside useEffect");
+      console.log("value of redirect:", redirect);
+
+      if (redirect) {
+        window.location.href = "http://localhost:4000/";
+        console.log("after redirect");
+        console.log("value of redirect:", redirect);
+      }
+    },
+    [redirect]
+  );
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -25,7 +40,9 @@ function SignUp({ setUser }) {
       if (r.ok) {
         return r.json().then((user) => {
           setUser(user);
+          setRedirect(true);
           console.log("the user (signup comp) is: ", user);
+          console.log("user truthy?: ", user ? "truthy" : "falsy");
         });
       } else {
         throw new Error("Sign up failed");

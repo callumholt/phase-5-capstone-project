@@ -15,6 +15,8 @@ function WorkoutProfiles({ user }) {
   const [currentWeight, setCurrentWeight] = useState("");
   const [currentReps, setCurrentReps] = useState("");
   const [completedSets, setCompletedSets] = useState([]);
+  const [completedReps, setCompletedReps] = useState({});
+  const [completedWeight, setCompletedWeight] = useState({});
 
   console.log("(1)the user inside the workoutProfiles COMP is:", user);
 
@@ -50,13 +52,13 @@ function WorkoutProfiles({ user }) {
     fetchData();
   }, [user.id]);
 
-  const handleSetChange = (e) => {
-    if (e.target.name === "weight") {
-      setCurrentWeight(e.target.value);
-    } else if (e.target.name === "reps") {
-      setCurrentReps(e.target.value);
-    }
-  };
+  // const handleSetChange = (e) => {
+  //   if (e.target.name === "weight") {
+  //     setCurrentWeight(e.target.value);
+  //   } else if (e.target.name === "reps") {
+  //     setCurrentReps(e.target.value);
+  //   }
+  // };
 
   const handleSaveSet = async (
     dayIndex,
@@ -66,8 +68,8 @@ function WorkoutProfiles({ user }) {
   ) => {
     const setToSave = {
       exercise_id: exerciseId,
-      weight: currentWeight,
-      reps: currentReps,
+      weight: completedWeight[`${dayIndex}-${exerciseIndex}-${setIndex}`],
+      reps: completedReps[`${dayIndex}-${exerciseIndex}-${setIndex}`],
     };
 
     try {
@@ -82,24 +84,17 @@ function WorkoutProfiles({ user }) {
       if (response.status === 200) {
         console.log("Set saved successfully!");
 
-        // Create a copy of the current workout state
         const updatedWorkout = { ...workout };
 
-        // Find the exercise in the workout
         const updatedExercise =
           updatedWorkout.day[dayIndex].exercises[exerciseIndex];
 
-        // Add the new completed set to the exercise's completed_sets
         updatedExercise.completed_sets.push(setToSave);
 
-        // Update the state with the modified workout data
         setWorkout(updatedWorkout);
 
-        // Clear the input fields
         setCurrentWeight("");
         setCurrentReps("");
-
-        //call the workout fetch again to refresh the page:
 
         fetchData();
       } else {
@@ -107,8 +102,6 @@ function WorkoutProfiles({ user }) {
       }
     } catch (error) {
       console.error("Error saving set:", error);
-
-      // Handle the error, show an error message, etc.
     }
     fetchData();
   };
@@ -146,8 +139,18 @@ function WorkoutProfiles({ user }) {
                   <input
                     type="text"
                     name="weight"
-                    value={currentWeight}
-                    onChange={handleSetChange}
+                    value={
+                      completedWeight[
+                        `${dayIndex}-${exerciseIndex}-${setIndex}`
+                      ] || ""
+                    }
+                    onChange={(e) => {
+                      const key = `${dayIndex}-${exerciseIndex}-${setIndex}`;
+                      setCompletedWeight((prevState) => ({
+                        ...prevState,
+                        [key]: e.target.value,
+                      }));
+                    }}
                   />
                   <p
                     style={{ fontWeight: "bold", textDecoration: "underline" }}
@@ -157,8 +160,18 @@ function WorkoutProfiles({ user }) {
                   <input
                     type="text"
                     name="reps"
-                    value={currentReps}
-                    onChange={handleSetChange}
+                    value={
+                      completedReps[
+                        `${dayIndex}-${exerciseIndex}-${setIndex}`
+                      ] || ""
+                    }
+                    onChange={(e) => {
+                      const key = `${dayIndex}-${exerciseIndex}-${setIndex}`;
+                      setCompletedReps((prevState) => ({
+                        ...prevState,
+                        [key]: e.target.value,
+                      }));
+                    }}
                   />
                   <button
                     onClick={() =>
@@ -197,29 +210,3 @@ function WorkoutProfiles({ user }) {
 }
 
 export default WorkoutProfiles;
-
-// useEffect(() => {
-//   const fetchData = async () => {
-//     try {
-//       console.log("(2)the user.id that goes into the fetch is:", user.id);
-
-//       const response = await fetch(`/workouts/${user.id}`);
-//       console.log("(3)the response from the fetch is:", response);
-
-//       const data = await response.json();
-//       console.log("(3.5)the response after getting json'ified:", data);
-//       console.log(
-//         "(3.75)the response after getting json'ified, type:",
-//         typeof data
-//       );
-
-//       setWorkout(data);
-//       console.log("(4)the workout after being set is:", workout);
-//     } catch (error) {
-//       console.error("Error fetching workout data:", error);
-//       setError("An error occurred while fetching workout data.");
-//     }
-//   };
-
-//   fetchData();
-// }, [user.id]);

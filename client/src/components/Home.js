@@ -55,8 +55,11 @@ function Home({ user }) {
   if (user) {
     return (
       <>
-        <h1>Welcome, {user.name}!</h1>
-        <h1>Your user id is, {user.id}!</h1>
+        <h1>Welcome, {user.name}, it is wonderful to have you here!</h1>
+        <h2>
+          In order to generate a workout, you will need your user id, which is,{" "}
+          {user.id}!
+        </h2>
 
         <form onSubmit={handleSubmit}>
           <div>
@@ -144,7 +147,38 @@ function Home({ user }) {
       </>
     );
   } else {
-    return <h1>Please Login or Sign Up</h1>;
+    // This is when someone arrives before log on.
+    return (
+      <div
+        style={{
+          textAlign: "center",
+          fontFamily: "Arial, sans-serif",
+        }}
+      >
+        <h1 style={{ fontSize: "2em", marginBottom: "0.5em" }}>Hello!</h1>
+        <h2
+          style={{
+            fontSize: "1.5em",
+            fontWeight: "normal",
+            marginBottom: "1em",
+          }}
+        >
+          Welcome to StrongBot, this app is designed to help you build a workout
+          plan based on a range of personal factors.
+        </h2>
+        <p
+          style={{
+            fontSize: "1em",
+            maxWidth: "500px",
+            margin: "0 auto",
+            marginBottom: "2em",
+          }}
+        >
+          If you already have an account, Please Login or alternatively click on
+          Sign Up to create an account.
+        </p>
+      </div>
+    );
   }
 }
 

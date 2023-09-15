@@ -104,7 +104,7 @@ end
       }
     ]
     
-    
+    # gpt-3.5-turbo
     # Create the request
     request = Net::HTTP::Post.new(url)
     request.body = {
