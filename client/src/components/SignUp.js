@@ -51,7 +51,7 @@ function SignUp({ user, setUser }) {
   }
 
   return (
-    <div>
+    <div style={{ backgroundColor: "blue", opacity: 0.3 }}>
       <form onSubmit={handleSubmit}>
         <h1>Sign Up</h1>
         <label htmlFor="name">Name</label>

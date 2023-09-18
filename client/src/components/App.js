@@ -21,31 +21,31 @@ function App() {
     });
   }, []);
 
-  // console.log("the user when outside the app func is: ", user);
-
   return (
     <>
       <NavBar user={user} setUser={setUser} />
-      <main>
-        <Routes>
-          {user ? (
-            <>
-              <Route path="/" element={<Home user={user} />} />
-              <Route
-                path="/workouts"
-                element={<WorkoutProfiles user={user} />}
-              />
-              <Route path="/NewWorkout" element={<NewWorkout />} />
-            </>
-          ) : (
-            <>
-              <Route path="/signup" element={<SignUp setUser={setUser} />} />
-              <Route path="/login" element={<Login setUser={setUser} />} />
-              <Route path="/" element={<Home />} />
-            </>
-          )}
-        </Routes>
-      </main>
+      <div>
+        <main>
+          <Routes>
+            {user ? (
+              <>
+                <Route path="/" element={<Home user={user} />} />
+                <Route
+                  path="/workouts"
+                  element={<WorkoutProfiles user={user} />}
+                />
+                <Route path="/NewWorkout" element={<NewWorkout />} />
+              </>
+            ) : (
+              <>
+                <Route path="/signup" element={<SignUp setUser={setUser} />} />
+                <Route path="/login" element={<Login setUser={setUser} />} />
+                <Route path="/" element={<Home />} />
+              </>
+            )}
+          </Routes>
+        </main>
+      </div>
     </>
   );
 }

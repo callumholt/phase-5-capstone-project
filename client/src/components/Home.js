@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { Configuration, OpenAIApi } from "openai";
-import OpenAI from "openai";
 
 function Home({ user }) {
   const [formData, setFormData] = useState({
@@ -55,95 +53,103 @@ function Home({ user }) {
   if (user) {
     return (
       <>
-        <h1>Welcome, {user.name}, it is wonderful to have you here!</h1>
-        <h2>
-          In order to generate a workout, you will need your user id, which is,{" "}
-          {user.id}!
-        </h2>
+        <div
+          style={{
+            backgroundImage: `url(${process.env.PUBLIC_URL}/images/backgroundImage.jpg)`,
+          }}
+        >
+          <h1 style={{ color: "white" }}>
+            Welcome, {user.name}, it is wonderful to have you here!
+          </h1>
+          <h2 style={{ color: "white" }}>
+            In order to generate a workout, you will need your user id, which
+            is, {user.id}!
+          </h2>
 
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label>
-              Name:
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-              />
-            </label>
-          </div>
-          <div>
-            <label>
-              User ID:
-              <input
-                type="number"
-                name="userId"
-                value={formData.userId}
-                onChange={handleInputChange}
-              />
-            </label>
-          </div>
-          <div>
-            <label>
-              Fitness Goal:
-              <input
-                type="text"
-                name="goal"
-                value={formData.goal}
-                onChange={handleInputChange}
-              />
-            </label>
-          </div>
-          <div>
-            <label>
-              Fitness Experience:
-              <select
-                name="experience"
-                value={formData.experience}
-                onChange={handleInputChange}
-              >
-                <option value="beginner">Beginner</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="advanced">Advanced</option>
-              </select>
-            </label>
-          </div>
-          <div>
-            <label>
-              Sessions per Week:
-              <input
-                type="number"
-                name="sessionsPerWeek"
-                value={formData.sessionsPerWeek}
-                onChange={handleInputChange}
-              />
-            </label>
-          </div>
-          <div>
-            <label>
-              Session Duration (minutes):
-              <input
-                type="number"
-                name="sessionDuration"
-                value={formData.sessionDuration}
-                onChange={handleInputChange}
-              />
-            </label>
-          </div>
-          <div>
-            <label>
-              Injuries:
-              <input
-                type="text"
-                name="injuries"
-                value={formData.injuries}
-                onChange={handleInputChange}
-              />
-            </label>
-          </div>
-          <button type="submit">Submit</button>
-        </form>
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label>
+                Name:
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                />
+              </label>
+            </div>
+            <div>
+              <label>
+                User ID:
+                <input
+                  type="number"
+                  name="userId"
+                  value={formData.userId}
+                  onChange={handleInputChange}
+                />
+              </label>
+            </div>
+            <div>
+              <label>
+                Fitness Goal:
+                <input
+                  type="text"
+                  name="goal"
+                  value={formData.goal}
+                  onChange={handleInputChange}
+                />
+              </label>
+            </div>
+            <div>
+              <label>
+                Fitness Experience:
+                <select
+                  name="experience"
+                  value={formData.experience}
+                  onChange={handleInputChange}
+                >
+                  <option value="beginner">Beginner</option>
+                  <option value="intermediate">Intermediate</option>
+                  <option value="advanced">Advanced</option>
+                </select>
+              </label>
+            </div>
+            <div>
+              <label>
+                Sessions per Week:
+                <input
+                  type="number"
+                  name="sessionsPerWeek"
+                  value={formData.sessionsPerWeek}
+                  onChange={handleInputChange}
+                />
+              </label>
+            </div>
+            <div>
+              <label>
+                Session Duration (minutes):
+                <input
+                  type="number"
+                  name="sessionDuration"
+                  value={formData.sessionDuration}
+                  onChange={handleInputChange}
+                />
+              </label>
+            </div>
+            <div>
+              <label>
+                Injuries:
+                <input
+                  type="text"
+                  name="injuries"
+                  value={formData.injuries}
+                  onChange={handleInputChange}
+                />
+              </label>
+            </div>
+            <button type="submit">Submit</button>
+          </form>
+        </div>
       </>
     );
   } else {
@@ -153,6 +159,7 @@ function Home({ user }) {
         style={{
           textAlign: "center",
           fontFamily: "Arial, sans-serif",
+          color: "white",
         }}
       >
         <h1 style={{ fontSize: "2em", marginBottom: "0.5em" }}>Hello!</h1>

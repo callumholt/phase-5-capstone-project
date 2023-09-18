@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import SignUp from "./SignUp";
 import Login from "./Login";
 import NavBar from "./NavBar";
+import styles from "/Users/callumholt/Development/code/phase_5/phase-5-capstone-project/client/src/components/workoutProfiles.module.css";
 
 function WorkoutProfiles({ user }) {
   const [workout, setWorkout] = useState({
@@ -107,102 +108,133 @@ function WorkoutProfiles({ user }) {
   };
 
   return (
-    <div>
-      <h1>Workout Profile</h1>
-      <h2>Workout ID: {workout.id}</h2>
-      <h2>Workout Name: {workout.name}</h2>
+    <div className={styles["workout-profile-container"]}>
+      <h1 className={styles["workout-profile-heading"]}>Workout Profile</h1>
+      <h2 className={styles["workout-profile-heading"]}>
+        {workout.name}, please find your AI generated workout below
+      </h2>
 
       {workout.day.map((day, dayIndex) => (
-        <div key={day.id}>
-          <h3>Day Number: {day.dayNumber}</h3>
+        <div key={day.id} className={styles["workout-profile-cards"]}>
+          {/* Left Card for Day Number */}
+          <div className={styles["workout-profile-card"]}>
+            <h3 className={styles["workout-profile-card-heading"]}>
+              Day Number: {day.dayNumber}
+            </h3>
+          </div>
 
-          {day.exercises.map((exercise, exerciseIndex) => (
-            <div key={exercise.id}>
-              <h4>Exercise: {exercise.name}</h4>
+          {/* Center Card for Prescribed Reps */}
+          <div className={styles["workout-profile-card"]}>
+            <h3 className={styles["workout-profile-card-heading"]}>
+              Prescribed Reps
+            </h3>
+            {day.exercises.map((exercise, exerciseIndex) => (
+              <div key={exercise.id}>
+                <h4 className={styles["workout-profile-exercise-name"]}>
+                  Exercise: {exercise.name}
+                  DayNumber: {day.dayNumber}
+                </h4>
+                {exercise.prescribed_sets.map((set, setIndex) => (
+                  <div key={set.id}>
+                    <p className={styles["workout-profile-prescribed-info"]}>
+                      Prescribed weight: {set.weight}
+                    </p>
+                    <p className={styles["workout-profile-info"]}>
+                      Reps: {set.reps}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
 
-              {exercise.prescribed_sets.map((set, setIndex) => (
-                <div key={set.id}>
-                  <p
-                    style={{ fontWeight: "bold", textDecoration: "underline" }}
-                  >
-                    Prescribed weight:{" "}
-                  </p>
-                  <p>Weight: {set.weight}</p>
-                  <p>Reps: {set.reps}</p>
-                  <p>Exercise ID: {exercise.id}</p>
-
-                  <p
-                    style={{ fontWeight: "bold", textDecoration: "underline" }}
-                  >
-                    Completed Weight:
-                  </p>
-                  <input
-                    type="text"
-                    name="weight"
-                    value={
-                      completedWeight[
-                        `${dayIndex}-${exerciseIndex}-${setIndex}`
-                      ] || ""
-                    }
-                    onChange={(e) => {
-                      const key = `${dayIndex}-${exerciseIndex}-${setIndex}`;
-                      setCompletedWeight((prevState) => ({
-                        ...prevState,
-                        [key]: e.target.value,
-                      }));
-                    }}
-                  />
-                  <p
-                    style={{ fontWeight: "bold", textDecoration: "underline" }}
-                  >
-                    Completed Reps:
-                  </p>
-                  <input
-                    type="text"
-                    name="reps"
-                    value={
-                      completedReps[
-                        `${dayIndex}-${exerciseIndex}-${setIndex}`
-                      ] || ""
-                    }
-                    onChange={(e) => {
-                      const key = `${dayIndex}-${exerciseIndex}-${setIndex}`;
-                      setCompletedReps((prevState) => ({
-                        ...prevState,
-                        [key]: e.target.value,
-                      }));
-                    }}
-                  />
-                  <button
-                    onClick={() =>
-                      handleSaveSet(
-                        dayIndex,
-                        exerciseIndex,
-                        setIndex,
-                        exercise.id
-                      )
-                    }
-                  >
-                    Save
-                  </button>
-                  {exercise.completed_sets.map((completedSet, index) => (
-                    <div key={index}>
-                      <p
-                        style={{
-                          fontWeight: "bold",
-                          textDecoration: "underline",
-                        }}
-                      >
-                        Completed Set {index + 1}:
-                      </p>
-                      <p>Weight: {completedSet.weight}</p>
-                      <p>Reps: {completedSet.reps}</p>
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </div>
-          ))}
+          {/* Right Card for Completed Reps and Sets */}
+          <div className={styles["workout-profile-card"]}>
+            <h3 className={styles["workout-profile-card-heading"]}>
+              Completed Reps and Sets
+            </h3>
+            {day.exercises.map((exercise, exerciseIndex) => (
+              <div key={exercise.id}>
+                <h4 className={styles["workout-profile-exercise-name"]}>
+                  Exercise: {exercise.name}
+                </h4>
+                {exercise.prescribed_sets.map((set, setIndex) => (
+                  <div key={set.id}>
+                    <p
+                      className={styles["workout-profile-prescribed-info"]}
+                    ></p>
+                    <p className={styles["workout-profile-info"]}></p>
+                    <p className={styles["workout-profile-prescribed-info"]}>
+                      Completed Weight for set {set.id}:
+                    </p>
+                    <input
+                      className={styles["workout-profile-input"]}
+                      type="text"
+                      name="weight"
+                      value={
+                        completedWeight[
+                          `${dayIndex}-${exerciseIndex}-${setIndex}`
+                        ] || ""
+                      }
+                      onChange={(e) => {
+                        const key = `${dayIndex}-${exerciseIndex}-${setIndex}`;
+                        setCompletedWeight((prevState) => ({
+                          ...prevState,
+                          [key]: e.target.value,
+                        }));
+                      }}
+                    />
+                    <p className={styles["workout-profile-prescribed-info"]}>
+                      Completed Reps for set {set.id}:
+                    </p>
+                    <input
+                      className={styles["workout-profile-input"]}
+                      type="text"
+                      name="reps"
+                      value={
+                        completedReps[
+                          `${dayIndex}-${exerciseIndex}-${setIndex}`
+                        ] || ""
+                      }
+                      onChange={(e) => {
+                        const key = `${dayIndex}-${exerciseIndex}-${setIndex}`;
+                        setCompletedReps((prevState) => ({
+                          ...prevState,
+                          [key]: e.target.value,
+                        }));
+                      }}
+                    />
+                    <button
+                      className={styles["workout-profile-save-button"]}
+                      onClick={() =>
+                        handleSaveSet(
+                          dayIndex,
+                          exerciseIndex,
+                          setIndex,
+                          exercise.id
+                        )
+                      }
+                    >
+                      Save
+                    </button>
+                    {exercise.completed_sets.map((completedSet, index) => (
+                      <div key={index}>
+                        <p className={styles["workout-profile-completed-set"]}>
+                          Completed Set {index + 1}:
+                        </p>
+                        <p className={styles["workout-profile-info"]}>
+                          Weight: {completedSet.weight} Kg
+                        </p>
+                        <p className={styles["workout-profile-info"]}>
+                          Reps: {completedSet.reps} reps
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       ))}
     </div>
@@ -210,3 +242,112 @@ function WorkoutProfiles({ user }) {
 }
 
 export default WorkoutProfiles;
+
+// return (
+//   <div className={styles["workout-profile-card"]}>
+//     <h1 className={styles["workout-profile-heading"]}>Workout Profile</h1>
+//     <h2 className={styles["workout-profile-heading"]}>
+//       {workout.name}, please find your AI generated workout below
+//     </h2>
+
+//     {workout.day.map((day, dayIndex) => (
+//       <div key={day.id}>
+//         <h3 className={styles["workout-profile-day-number"]}>
+//           Day Number: {day.dayNumber}
+//         </h3>
+
+//         {day.exercises.map((exercise, exerciseIndex) => (
+//           <div key={exercise.id}>
+//             <h4 className={styles["workout-profile-exercise-name"]}>
+//               Exercise: {exercise.name}
+//             </h4>
+
+//             {exercise.prescribed_sets.map((set, setIndex) => (
+//               <div key={set.id}>
+//                 <p className={styles["workout-profile-prescribed-info"]}>
+//                   Prescribed weight:{" "}
+//                 </p>
+//                 <p className={styles["workout-profile-info"]}>
+//                   Weight: {set.weight}
+//                 </p>
+//                 <p className={styles["workout-profile-info"]}>
+//                   Reps: {set.reps}
+//                 </p>
+//                 <p className={styles["workout-profile-info"]}>
+//                   Exercise ID: {exercise.id}
+//                 </p>
+
+//                 <p className={styles["workout-profile-prescribed-info"]}>
+//                   Completed Weight:
+//                 </p>
+//                 <input
+//                   className={styles["workout-profile-input"]}
+//                   type="text"
+//                   name="weight"
+//                   value={
+//                     completedWeight[
+//                       `${dayIndex}-${exerciseIndex}-${setIndex}`
+//                     ] || ""
+//                   }
+//                   onChange={(e) => {
+//                     const key = `${dayIndex}-${exerciseIndex}-${setIndex}`;
+//                     setCompletedWeight((prevState) => ({
+//                       ...prevState,
+//                       [key]: e.target.value,
+//                     }));
+//                   }}
+//                 />
+//                 <p className={styles["workout-profile-prescribed-info"]}>
+//                   Completed Reps:
+//                 </p>
+//                 <input
+//                   className={styles["workout-profile-input"]}
+//                   type="text"
+//                   name="reps"
+//                   value={
+//                     completedReps[
+//                       `${dayIndex}-${exerciseIndex}-${setIndex}`
+//                     ] || ""
+//                   }
+//                   onChange={(e) => {
+//                     const key = `${dayIndex}-${exerciseIndex}-${setIndex}`;
+//                     setCompletedReps((prevState) => ({
+//                       ...prevState,
+//                       [key]: e.target.value,
+//                     }));
+//                   }}
+//                 />
+//                 <button
+//                   className={styles["workout-profile-save-button"]}
+//                   onClick={() =>
+//                     handleSaveSet(
+//                       dayIndex,
+//                       exerciseIndex,
+//                       setIndex,
+//                       exercise.id
+//                     )
+//                   }
+//                 >
+//                   Save
+//                 </button>
+//                 {exercise.completed_sets.map((completedSet, index) => (
+//                   <div key={index}>
+//                     <p className={styles["workout-profile-completed-set"]}>
+//                       Completed Set {index + 1}:
+//                     </p>
+//                     <p className={styles["workout-profile-info"]}>
+//                       Weight: {completedSet.weight}
+//                     </p>
+//                     <p className={styles["workout-profile-info"]}>
+//                       Reps: {completedSet.reps}
+//                     </p>
+//                   </div>
+//                 ))}
+//               </div>
+//             ))}
+//           </div>
+//         ))}
+//       </div>
+//     ))}
+//   </div>
+// );

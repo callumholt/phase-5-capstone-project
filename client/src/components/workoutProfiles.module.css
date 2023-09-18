@@ -1,0 +1,128 @@
+
+
+.workout-profile-heading {
+  grid-column: span 3; /* Span across all three columns */
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.workout-profile-day-number {
+  text-align: center;
+}
+
+.workout-profile-prescribed,
+.workout-profile-completed,
+.workout-profile-completed-set {
+  font-weight: bold;
+}
+
+.workout-profile-prescribed-info,
+.workout-profile-completed-info,
+.workout-profile-info {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.workout-profile-info,
+.workout-profile-input {
+  width: 80%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.workout-profile-save-button {
+  font-size: 1.5rem;
+  background-color: #008000;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.workout-profile-exercise,
+.workout-profile-exercise-prescribed-weight,
+.workout-profile-exercise-completed-weight {
+  font-size: 1rem;
+}
+
+.workout-profile-exercise-prescribed-weight,
+.workout-profile-exercise-completed-weight {
+  font-weight: bold;
+}
+
+.workout-profile {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 1rem;
+  padding: 1rem;
+  margin: 0.5rem;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+}
+
+
+
+.workout-profile-heading {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #000000;
+}
+
+.workout-profile-user-info {
+  font-size: 1.25rem;
+  color: #000000;
+}
+
+.workout-profile-workout-info {
+  font-size: 1rem;
+  color: #000000;
+}
+
+.workout-profile-save-button {
+  font-size: 1.25rem;
+  background-color: #008000;
+  color: #ffffff;
+  border-radius: 5px;
+}
+
+.workout-profile-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 1rem;
+}
+
+.workout-profile-card {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  padding: 1rem;
+  margin: 0.5rem;
+  background-color: #ffffff;
+
+}
+
+.workout-profile-card:hover {
+  box-shadow: 0 15px 20px 0 rgba(46, 8, 212, 0.2);
+}
+
+.workout-profile-card-heading {
+  font-size: 1.23rem;
+  font-weight: bold;
+}
+
+.workout-profile-card-user-info {
+  font-size: 1rem;
+}
+
+.workout-profile-card-workout-info {
+  font-size: 1rem;
+}
+
+.workout-profile-card-save-button {
+  font-size: 1.25rem;
+  background-color: #008000;
+  color: #ffffff;
+  border-radius: 5px;
+}
+
