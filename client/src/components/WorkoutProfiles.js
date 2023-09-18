@@ -132,15 +132,14 @@ function WorkoutProfiles({ user }) {
               <div key={exercise.id}>
                 <h4 className={styles["workout-profile-exercise-name"]}>
                   Exercise: {exercise.name}
-                  DayNumber: {day.dayNumber}
                 </h4>
                 {exercise.prescribed_sets.map((set, setIndex) => (
                   <div key={set.id}>
                     <p className={styles["workout-profile-prescribed-info"]}>
-                      Prescribed weight: {set.weight}
+                      <b>Prescribed weight {set.id}:</b> {set.weight} Kgs
                     </p>
                     <p className={styles["workout-profile-info"]}>
-                      Reps: {set.reps}
+                      <b>Reps:</b> {set.reps} reps
                     </p>
                   </div>
                 ))}
