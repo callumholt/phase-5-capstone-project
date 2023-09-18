@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import SignUp from "./SignUp";
 import Login from "./Login";
 import NavBar from "./NavBar";
-import styles from "/Users/callumholt/Development/code/phase_5/phase-5-capstone-project/client/src/components/workoutProfiles.css";
+import styles from "client/src/workoutProfiles.module.css";
 
 function WorkoutProfiles({ user }) {
   const [workout, setWorkout] = useState({
