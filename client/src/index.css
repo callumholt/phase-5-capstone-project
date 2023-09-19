@@ -5,9 +5,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  max-width: 900px;
+  max-width: auto;
   background-repeat: no-repeat;
   background-size: auto; 
+  position: center;
 
 }
 

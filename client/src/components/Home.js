@@ -160,36 +160,33 @@ function Home({ user }) {
     );
   } else {
     return (
-      <div
-        style={{
-          textAlign: "center",
-          fontFamily: "Arial, sans-serif",
-          color: "white",
-        }}
-      >
-        <h1 style={{ fontSize: "2em", marginBottom: "0.5em" }}>Hello!</h1>
-        <h2
+      <>
+        <div className={styles["backgroundImage"]}>
+          <h1 className={styles["title"]}>
+            BUILD YOUR BODY WITH THE POWER OF AI
+          </h1>
+        </div>
+        <div
           style={{
-            fontSize: "1.5em",
-            fontWeight: "normal",
-            marginBottom: "1em",
+            textAlign: "center",
+            fontFamily: "Arial, sans-serif",
+            color: "white",
           }}
         >
-          Welcome to StrongBot, this app is designed to help you build a workout
-          plan based on a range of personal factors.
-        </h2>
-        <p
-          style={{
-            fontSize: "1em",
-            maxWidth: "500px",
-            margin: "0 auto",
-            marginBottom: "2em",
-          }}
-        >
-          If you already have an account, Please Login or alternatively click on
-          Sign Up to create an account.
-        </p>
-      </div>
+          <div className={styles["about"]}>
+            <h2>
+              Welcome to StrongBot, this app is designed to help you build a
+              workout plan based on a range of personal factors.
+            </h2>
+          </div>
+          <div className={styles["login"]}>
+            <p>
+              If you already have an account, Please Login or alternatively
+              click on Sign Up to create an account.
+            </p>
+          </div>
+        </div>
+      </>
     );
   }
 }

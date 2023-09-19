@@ -100,7 +100,7 @@
   border-radius: 5px;
   padding: 1rem;
   margin: 0.5rem;
-  background-color: #ffffff;
+  background-color: rgb(240, 229, 229);
 
 }
 
@@ -127,4 +127,8 @@
   background-color: #008000;
   color: #ffffff;
   border-radius: 5px;
+}
+
+.workout-profile-container {
+  width: fit-content;
 }
