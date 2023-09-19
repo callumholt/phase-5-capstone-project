@@ -41,6 +41,11 @@
 .workout-profile-exercise-prescribed-weight,
 .workout-profile-exercise-completed-weight {
   font-size: 1rem;
+
+}
+
+.workout-profile-exercise-name {
+  text-decoration: underline;
 }
 
 .workout-profile-exercise-prescribed-weight,
@@ -114,6 +119,7 @@
 
 .workout-profile-card-workout-info {
   font-size: 1rem;
+  
 }
 
 .workout-profile-card-save-button {

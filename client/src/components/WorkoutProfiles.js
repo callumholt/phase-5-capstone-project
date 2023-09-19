@@ -61,16 +61,11 @@ function WorkoutProfiles({ user }) {
   //   }
   // };
 
-  const handleSaveSet = async (
-    dayIndex,
-    exerciseIndex,
-    setIndex,
-    exerciseId
-  ) => {
+  const handleSaveSet = async (dayIndex, exerciseIndex, exerciseId) => {
     const setToSave = {
       exercise_id: exerciseId,
-      weight: completedWeight[`${dayIndex}-${exerciseIndex}-${setIndex}`],
-      reps: completedReps[`${dayIndex}-${exerciseIndex}-${setIndex}`],
+      weight: completedWeight[`${dayIndex}-${exerciseIndex}`],
+      reps: completedReps[`${dayIndex}-${exerciseIndex}`],
     };
 
     try {
@@ -96,15 +91,13 @@ function WorkoutProfiles({ user }) {
 
         setCurrentWeight("");
         setCurrentReps("");
-
-        fetchData();
       } else {
         console.error("Error saving set:", response.statusText);
+        fetchData();
       }
     } catch (error) {
       console.error("Error saving set:", error);
     }
-    fetchData();
   };
 
   return (
@@ -157,78 +150,60 @@ function WorkoutProfiles({ user }) {
                 <h4 className={styles["workout-profile-exercise-name"]}>
                   Exercise: {exercise.name}
                 </h4>
-                {exercise.prescribed_sets.map((set, setIndex) => (
-                  <div key={set.id}>
-                    <p
-                      className={styles["workout-profile-prescribed-info"]}
-                    ></p>
-                    <p className={styles["workout-profile-info"]}></p>
-                    <p className={styles["workout-profile-prescribed-info"]}>
-                      Completed Weight for set {set.id}:
+                {/* Input field for Completed Weight */}
+                <p className={styles["workout-profile-prescribed-info"]}>
+                  Completed Weight for exercise:
+                </p>
+                <input
+                  className={styles["workout-profile-input"]}
+                  type="text"
+                  name="weight"
+                  value={completedWeight[`${dayIndex}-${exerciseIndex}`] || ""}
+                  onChange={(e) => {
+                    const key = `${dayIndex}-${exerciseIndex}`;
+                    setCompletedWeight((prevState) => ({
+                      ...prevState,
+                      [key]: e.target.value,
+                    }));
+                  }}
+                />
+                {/* Input field for Completed Reps */}
+                <p className={styles["workout-profile-prescribed-info"]}>
+                  Completed Reps for exercise:
+                </p>
+                <input
+                  className={styles["workout-profile-input"]}
+                  type="text"
+                  name="reps"
+                  value={completedReps[`${dayIndex}-${exerciseIndex}`] || ""}
+                  onChange={(e) => {
+                    const key = `${dayIndex}-${exerciseIndex}`;
+                    setCompletedReps((prevState) => ({
+                      ...prevState,
+                      [key]: e.target.value,
+                    }));
+                  }}
+                />
+                <button
+                  className={styles["workout-profile-save-button"]}
+                  onClick={() =>
+                    handleSaveSet(dayIndex, exerciseIndex, exercise.id)
+                  }
+                >
+                  Save
+                </button>
+                {/* Display completed set for this exercise */}
+                {exercise.completed_sets.map((completedSet, index) => (
+                  <div key={index}>
+                    <p className={styles["workout-profile-completed-set"]}>
+                      Completed Set {index + 1}:
                     </p>
-                    <input
-                      className={styles["workout-profile-input"]}
-                      type="text"
-                      name="weight"
-                      value={
-                        completedWeight[
-                          `${dayIndex}-${exerciseIndex}-${setIndex}`
-                        ] || ""
-                      }
-                      onChange={(e) => {
-                        const key = `${dayIndex}-${exerciseIndex}-${setIndex}`;
-                        setCompletedWeight((prevState) => ({
-                          ...prevState,
-                          [key]: e.target.value,
-                        }));
-                      }}
-                    />
-                    <p className={styles["workout-profile-prescribed-info"]}>
-                      Completed Reps for set {set.id}:
+                    <p className={styles["workout-profile-info"]}>
+                      Weight: {completedSet.weight} Kg
                     </p>
-                    <input
-                      className={styles["workout-profile-input"]}
-                      type="text"
-                      name="reps"
-                      value={
-                        completedReps[
-                          `${dayIndex}-${exerciseIndex}-${setIndex}`
-                        ] || ""
-                      }
-                      onChange={(e) => {
-                        const key = `${dayIndex}-${exerciseIndex}-${setIndex}`;
-                        setCompletedReps((prevState) => ({
-                          ...prevState,
-                          [key]: e.target.value,
-                        }));
-                      }}
-                    />
-                    <button
-                      className={styles["workout-profile-save-button"]}
-                      onClick={() =>
-                        handleSaveSet(
-                          dayIndex,
-                          exerciseIndex,
-                          setIndex,
-                          exercise.id
-                        )
-                      }
-                    >
-                      Save
-                    </button>
-                    {exercise.completed_sets.map((completedSet, index) => (
-                      <div key={index}>
-                        <p className={styles["workout-profile-completed-set"]}>
-                          Completed Set {index + 1}:
-                        </p>
-                        <p className={styles["workout-profile-info"]}>
-                          Weight: {completedSet.weight} Kg
-                        </p>
-                        <p className={styles["workout-profile-info"]}>
-                          Reps: {completedSet.reps} reps
-                        </p>
-                      </div>
-                    ))}
+                    <p className={styles["workout-profile-info"]}>
+                      Reps: {completedSet.reps} reps
+                    </p>
                   </div>
                 ))}
               </div>
