@@ -74,6 +74,8 @@ function Home({ user }) {
                 workout:
               </b>
               <p></p>
+              <div></div>
+
               <label>
                 Name:
                 <input
