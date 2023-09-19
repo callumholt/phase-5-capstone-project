@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styles from "./home.module.css";
 
 function Home({ user }) {
   const [formData, setFormData] = useState({
@@ -68,6 +69,11 @@ function Home({ user }) {
 
           <form onSubmit={handleSubmit}>
             <div>
+              <b>
+                Please enter your details below and submit to generate your
+                workout:
+              </b>
+              <p></p>
               <label>
                 Name:
                 <input
@@ -153,7 +159,6 @@ function Home({ user }) {
       </>
     );
   } else {
-    // This is when someone arrives before log on.
     return (
       <div
         style={{
