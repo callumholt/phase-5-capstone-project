@@ -54,11 +54,7 @@ function Home({ user }) {
   if (user) {
     return (
       <>
-        <div
-          style={{
-            backgroundImage: `url("./backgroundImage.jpg")`,
-          }}
-        >
+        <div className={styles["homeBackgroundImage"]}>
           <h1 style={{ color: "white" }}>
             Welcome, {user.name}, it is wonderful to have you here!
           </h1>

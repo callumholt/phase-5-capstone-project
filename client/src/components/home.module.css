@@ -135,6 +135,15 @@ body {
     height: fit-content;
   }
 
+  .homeBackgroundImage {
+    background-image: url('./backgroundImage.jpg');
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    opacity: 0.5;
+    height: fit-content;
+  }
+
   .about {
     font-size: 30px;
     width: 50%;
