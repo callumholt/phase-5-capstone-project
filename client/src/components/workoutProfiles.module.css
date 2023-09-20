@@ -91,7 +91,9 @@
 
 .workout-profile-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  /* grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); */
+  grid-template-columns: repeat(3, minmax(50px, 500px)); 
+
   grid-gap: 1rem;
 }
 
@@ -100,7 +102,7 @@
   border-radius: 5px;
   padding: 1rem;
   margin: 0.5rem;
-  background-color: rgb(240, 229, 229);
+  background-color: rgb(91, 235, 251);
 
 }
 
