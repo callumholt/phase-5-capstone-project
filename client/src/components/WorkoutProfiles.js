@@ -109,11 +109,7 @@ function WorkoutProfiles({ user }) {
   return (
     <>
       <div className={styles["workout-profile-container"]}>
-        {error ? (
-          <div className={styles["error-message"]}>
-            <p>Please create a workout first by going to HOME.</p>
-          </div>
-        ) : (
+        {!error ? (
           <>
             <h1 className={styles["workout-profile-heading"]}>
               Workout Profile
@@ -237,6 +233,10 @@ function WorkoutProfiles({ user }) {
               </div>
             ))}
           </>
+        ) : (
+          <div className={styles["error-message"]}>
+            <p>Please create a workout first by going to HOME.</p>
+          </div>
         )}
       </div>
     </>

@@ -16,9 +16,8 @@ body {
   
   form {
     margin-top: 20px;
-    background-color: rgb(151, 162, 233) ;
-    opacity: 0.8;
-    border-radius: 00.5rem;
+    background-color: rgba(113, 80, 246, 0.561) ;
+    border-radius: 1rem;
   }
   
   label {
@@ -140,7 +139,7 @@ body {
     background-size: cover;
     background-position: center;
     width: 100%;
-    opacity: 0.5;
+    opacity: 1;
     height: fit-content;
   }
 
