@@ -175,8 +175,8 @@ function Home({ user }) {
             color: "white",
           }}
         >
-          <div className={styles["about"]}>
-            <h2>
+          <div className={styles["femaleBackgroundImage"]}>
+            <h2 className={styles["about"]}>
               Welcome to StrongBot, this app is designed to help you build a
               workout plan based on a range of personal factors.
             </h2>
