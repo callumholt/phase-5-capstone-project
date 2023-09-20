@@ -56,7 +56,7 @@ function Home({ user }) {
       <>
         <div
           style={{
-            backgroundImage: url("./backgroundImage.jpg"),
+            backgroundImage: `url("./backgroundImage.jpg")`,
           }}
         >
           <h1 style={{ color: "white" }}>
