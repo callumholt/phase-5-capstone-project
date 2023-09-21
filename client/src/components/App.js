@@ -9,7 +9,6 @@ import NewWorkout from "./NewWorkout";
 
 function App() {
   const [user, setUser] = useState(null);
-  // console.log("the user when inside the app func: ", user);
 
   useEffect(() => {
     // auto-login
@@ -23,28 +22,33 @@ function App() {
 
   return (
     <>
-      <NavBar user={user} setUser={setUser} />
       <div>
-        <main>
-          <Routes>
-            {user ? (
-              <>
-                <Route path="/" element={<Home user={user} />} />
-                <Route
-                  path="/workouts"
-                  element={<WorkoutProfiles user={user} />}
-                />
-                <Route path="/NewWorkout" element={<NewWorkout />} />
-              </>
-            ) : (
-              <>
-                <Route path="/signup" element={<SignUp setUser={setUser} />} />
-                <Route path="/login" element={<Login setUser={setUser} />} />
-                <Route path="/" element={<Home />} />
-              </>
-            )}
-          </Routes>
-        </main>
+        <NavBar user={user} setUser={setUser} />
+        <div>
+          <main>
+            <Routes>
+              {user ? (
+                <>
+                  <Route path="/" element={<Home user={user} />} />
+                  <Route
+                    path="/workouts"
+                    element={<WorkoutProfiles user={user} />}
+                  />
+                  <Route path="/NewWorkout" element={<NewWorkout />} />
+                </>
+              ) : (
+                <>
+                  <Route
+                    path="/signup"
+                    element={<SignUp setUser={setUser} />}
+                  />
+                  <Route path="/login" element={<Login setUser={setUser} />} />
+                  <Route path="/" element={<Home />} />
+                </>
+              )}
+            </Routes>
+          </main>
+        </div>
       </div>
     </>
   );

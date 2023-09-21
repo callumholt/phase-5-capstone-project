@@ -1,0 +1,8 @@
+.appBackgroundImage {
+  background-image: url('./backgroundImage.jpg');
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  opacity: 1;
+  height: fit-content;
+}

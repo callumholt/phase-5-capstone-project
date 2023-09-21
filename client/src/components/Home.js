@@ -174,7 +174,7 @@ function Home({ user }) {
           <div className={styles["femaleBackgroundImage"]}>
             <h2 className={styles["about"]}>
               Welcome to StrongBot, this app is designed to help you build a
-              workout plan based on a range of personal factors.
+              workout plan based on your goals.
             </h2>
           </div>
           <div className={styles["login"]}>
