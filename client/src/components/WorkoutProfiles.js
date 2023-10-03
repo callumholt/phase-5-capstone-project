@@ -109,7 +109,7 @@ function WorkoutProfiles({ user }) {
   return (
     <>
       <div className={styles["workout-profile-container"]}>
-        {!error ? (
+        {!error && workout ? (
           <>
             <h1 className={styles["workout-profile-heading"]}>
               Workout Profile

@@ -16,17 +16,22 @@ function NewWorkout({ setUser }) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ newWorkout }), // Fixed variable name
+      body: JSON.stringify({ newWorkout }),
     })
       .then((r) => {
         if (r.ok) {
-          console.log("Successfully created workout"); // Fixed the console.log message
+          console.log("Successfully created workout");
         } else {
-          throw new Error("Error in creating New Workout"); // Fixed typo and error message
+          // throw new Error("Error in creating New Workout");
+          alert(
+            "It looks like you encountered a bug in the system, please try again"
+          );
         }
       })
       .catch((error) => {
-        alert(error.message);
+        alert(
+          "It looks like you encountered a bug in the system, please try again"
+        );
       });
   }
 

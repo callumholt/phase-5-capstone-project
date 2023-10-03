@@ -45,7 +45,8 @@ function SignUp({ user, setUser }) {
           console.log("user truthy?: ", user ? "truthy" : "falsy");
         });
       } else {
-        throw new Error("Sign up failed");
+        alert("It looks like the passwords didnt match, try again");
+        // throw new Error("Sign up failed");
       }
     });
   }
