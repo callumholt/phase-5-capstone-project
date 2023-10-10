@@ -82,14 +82,15 @@ end
   
     url = URI('https://api.openai.com/v1/chat/completions')
     api_key2 = ENV['OPEN_AI_KEY']
+    api_key1 = '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'
     
     
-    puts "API Key: #{api_key2}"
+    puts "API Key: #{api_key1}"
     
     
     headers = {
       'Content-Type' => 'application/json',
-      'Authorization' => "Bearer #{api_key2}"
+      'Authorization' => "Bearer #{api_key1}"
     }
     
     # Define the message parameters

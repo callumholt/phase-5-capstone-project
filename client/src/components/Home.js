@@ -173,15 +173,12 @@ function Home({ user }) {
         >
           <div className={styles["femaleBackgroundImage"]}>
             <h2 className={styles["about"]}>
-              Welcome to StrongBot, this app is designed to help you build a
-              workout plan based on your goals.
+              Welcome to StrongBot, Please login or signup using the bottons at
+              the top.
             </h2>
           </div>
           <div className={styles["login"]}>
-            <p>
-              If you already have an account, Please Login or alternatively
-              click on Sign Up to create an account.
-            </p>
+            <p></p>
           </div>
         </div>
       </>

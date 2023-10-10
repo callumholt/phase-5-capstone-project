@@ -114,11 +114,12 @@ body {
   .title {
     font-size: 6rem;
     font-weight: 900;
+    color: black;
     opacity: 1;
     right: 10%;
     width: 70%;
     height: fit-content;
-    background-color: #3f9afccc;
+    background-color: #3f9afc;
     border-radius: 1rem;
     padding: 3rem;
 
@@ -145,6 +146,7 @@ body {
 
   .about {
     font-size: 40px;
+    color: black;
     width: 60%;
     position: relative;
     left: 150%;
