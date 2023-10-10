@@ -117,6 +117,7 @@ end
       presence_penalty: 0
     }.to_json
     request.initialize_http_header(headers)
+    request_timeout = 500
     
     # Send the request
     response = Net::HTTP.start(url.host, url.port, use_ssl: true) do |http|
