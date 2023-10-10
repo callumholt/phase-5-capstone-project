@@ -72,11 +72,10 @@ end
     puts "this is the workoutCreateData username: #{userName}"
     puts "this is the workoutCreateData userId: #{userId}"
     puts "this is the workoutCreateData goal: #{goal}"
+    puts "this is the workoutCreateData experience: #{experience}"
     puts "this is the workoutCreateData sessionsPerWeek: #{sessionsPerWeek}"
     puts "this is the workoutCreateData sessionDuration: #{sessionDuration}"
     puts "this is the workoutCreateData injuries: #{injuries}"
-  
-  
   
   
   
@@ -119,9 +118,21 @@ end
     request.initialize_http_header(headers)
     
     # Send the request
-    response = Net::HTTP.start(url.host, url.port, use_ssl: true) do |http|
-      http.request(request)
+    # response = Net::HTTP.start(url.host, url.port, use_ssl: true) do |http|
+    #   http.request(request)
+    # end
+
+    begin
+      http = Net::HTTP.new(url.host, url.port)
+      http.use_ssl = true
+      http.read_timeout = 120 # Set a higher timeout value (in seconds)
+    
+      response = http.request(request)
+    rescue Net::ReadTimeout => e
+      puts "Error: #{e}"
+      # Take appropriate action (e.g., retry the request)
     end
+    
     
     # Print the response
     puts response.body
