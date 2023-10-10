@@ -77,6 +77,7 @@ end
     puts "this is the workoutCreateData sessionDuration: #{sessionDuration}"
     puts "this is the workoutCreateData injuries: #{injuries}"
   
+
   
   
     url = URI('https://api.openai.com/v1/chat/completions')
@@ -118,21 +119,9 @@ end
     request.initialize_http_header(headers)
     
     # Send the request
-    # response = Net::HTTP.start(url.host, url.port, use_ssl: true) do |http|
-    #   http.request(request)
-    # end
-
-    begin
-      http = Net::HTTP.new(url.host, url.port)
-      http.use_ssl = true
-      http.read_timeout = 120 # Set a higher timeout value (in seconds)
-    
-      response = http.request(request)
-    rescue Net::ReadTimeout => e
-      puts "Error: #{e}"
-      # Take appropriate action (e.g., retry the request)
+    response = Net::HTTP.start(url.host, url.port, use_ssl: true) do |http|
+      http.request(request)
     end
-    
     
     # Print the response
     puts response.body
