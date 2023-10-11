@@ -86,6 +86,7 @@ end
     api_key2 = ENV['OPEN_AI_KEY']
     
     OpenAI.api_key = ENV['OPEN_AI_KEY']
+    
 
     
     
@@ -112,7 +113,7 @@ end
     ]
     api_key2 = ENV['OPEN_AI_KEY']
 
-    client = OpenAI::Client.new(access_token: api_key2)
+    client = OpenAI::Client.new(access_token: OpenAI.api_key)
 
     response = client.completions(
       parameters: {
