@@ -90,6 +90,8 @@ end
     
     
     puts "API Key: #{api_key2}"
+    puts "API Key: #{OpenAI.api_key}"
+
     
     
     headers = {
@@ -108,8 +110,9 @@ end
         "content": "Please create a workout designed for the user below:\n\nname: #{userName}\nuser_id: #{userId}\nFitness goals: #{goal}\nTraining experience: #{experience}\nDays per week to train: #{sessionsPerWeek}\nTime for each training session: #{sessionDuration} minutes\nInjuries: #{injuries}\n"
       }
     ]
-    
-    client = OpenAI::Client.new(access_token: "api_key2")
+    api_key2 = ENV['OPEN_AI_KEY']
+
+    client = OpenAI::Client.new(access_token: api_key2)
 
     response = client.completions(
       parameters: {
