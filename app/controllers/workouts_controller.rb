@@ -14,6 +14,8 @@ class WorkoutsController < ApplicationController
 
 require 'net/http'
 require 'json'
+require "openai"
+
   
 def destroy
   workout = Workout.find_by(user_id: params[:id])
@@ -83,6 +85,9 @@ end
     url = URI('https://api.openai.com/v1/chat/completions')
     api_key2 = ENV['OPEN_AI_KEY']
     
+    OpenAI.api_key = ENV['OPEN_AI_KEY']
+
+    
     
     puts "API Key: #{api_key2}"
     
@@ -100,33 +105,45 @@ end
       },
       {
         "role": "user",
-        "content": "Please create a workout designed for the user below:\n\nname: #{userName}\nuser_id: #{userId}\nFitness goals: #{goal}\nTraining experience: #{experience}\nDays per week to train: #{sessionsPerWeek}\nTime for each training session: #{sessionDuration} minutes\nInjuries: #{injuries}\n and please make the response less than 450 tokens"
+        "content": "Please create a workout designed for the user below:\n\nname: #{userName}\nuser_id: #{userId}\nFitness goals: #{goal}\nTraining experience: #{experience}\nDays per week to train: #{sessionsPerWeek}\nTime for each training session: #{sessionDuration} minutes\nInjuries: #{injuries}\n"
       }
     ]
     
-    # gpt-3.5-turbo
-    # Create the request
-    request = Net::HTTP::Post.new(url)
-    puts "request sent"
+    client = OpenAI::Client.new(access_token: "api_key2")
 
-    request.body = {
-      model: 'gpt-3.5-turbo',
-      messages: messages,
-      temperature: 1,
-      max_tokens: 2000,
-      top_p: 1,
-      frequency_penalty: 0,
-      presence_penalty: 0
-    }.to_json
-    puts "this is the request: #{request.body}"
-    request.initialize_http_header(headers)
-    request_timeout = 1000
+    response = client.completions(
+      parameters: {
+          model: "gpt-3.5-turbo",
+          prompt: "Once upon a time",
+          max_tokens: 100
+      })
+  puts response["choices"].map { |c| c["text"] }
+  
+
+
+    # # gpt-3.5-turbo
+    # # Create the request
+    # request = Net::HTTP::Post.new(url)
+    # puts "request sent"
+
+    # request.body = {
+    #   model: 'gpt-3.5-turbo',
+    #   messages: messages,
+    #   temperature: 1,
+    #   max_tokens: 2000,
+    #   top_p: 1,
+    #   frequency_penalty: 0,
+    #   presence_penalty: 0
+    # }.to_json
+    # puts "this is the request: #{request.body}"
+    # request.initialize_http_header(headers)
+    # request_timeout = 1000
     
-    # Send the request
-    response = Net::HTTP.start(url.host, url.port, use_ssl: true) do |http|
-      http.request(request)
-      puts "request received"
-    end
+    # # Send the request
+    # response = Net::HTTP.start(url.host, url.port, use_ssl: true) do |http|
+    #   http.request(request)
+    #   puts "request received"
+    # end
     
     # Print the response
     puts response.body
