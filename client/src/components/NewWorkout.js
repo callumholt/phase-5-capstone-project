@@ -10,6 +10,12 @@ function NewWorkout({ setUser }) {
 
   function handleSubmit(e) {
     e.preventDefault();
+    console.log(
+      "Thank you for submitting your details, we will take 60 seconds to generate your workout!"
+    );
+    alert(
+      "Thank you for submitting your details, we will take 60 seconds to generate your workout!"
+    );
     fetch("/workouts/", {
       // Fixed the API endpoint
       method: "POST",
@@ -23,6 +29,9 @@ function NewWorkout({ setUser }) {
           console.log("Successfully created workout");
         } else {
           // throw new Error("Error in creating New Workout");
+          console.log(
+            "It looks like you encountered a bug in the system, please try again"
+          );
           alert(
             "It looks like you encountered a bug in the system, please try again"
           );
