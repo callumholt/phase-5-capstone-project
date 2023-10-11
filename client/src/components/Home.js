@@ -174,7 +174,7 @@ function Home({ user }) {
           <div className={styles["femaleBackgroundImage"]}>
             <h2 className={styles["about"]}>
               Welcome to StrongBot, Please login or signup using the bottons at
-              the top.
+              the top
             </h2>
           </div>
           <div className={styles["login"]}>

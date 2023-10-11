@@ -107,6 +107,8 @@ end
     # gpt-3.5-turbo
     # Create the request
     request = Net::HTTP::Post.new(url)
+    puts "request sent"
+
     request.body = {
       model: 'gpt-3.5-turbo',
       messages: messages,
@@ -116,12 +118,14 @@ end
       frequency_penalty: 0,
       presence_penalty: 0
     }.to_json
+    puts "this is the request: #{request.body}"
     request.initialize_http_header(headers)
     request_timeout = 1000
     
     # Send the request
     response = Net::HTTP.start(url.host, url.port, use_ssl: true) do |http|
       http.request(request)
+      puts "request received"
     end
     
     # Print the response
