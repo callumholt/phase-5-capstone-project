@@ -112,12 +112,12 @@ body {
   }
   
   .title {
-    font-size: 6rem;
+    font-size: 3rem;
     font-weight: 900;
     color: black;
     opacity: 1;
     right: 10%;
-    width: 70%;
+    width: 50%;
     height: fit-content;
     background-color: #3f9afc;
     border-radius: 1rem;
@@ -145,11 +145,11 @@ body {
   }
 
   .about {
-    font-size: 40px;
+    font-size: 2rem;
     color: black;
-    width: 60%;
+    width: 70%;
     position: relative;
-    left: 150%;
+    left: 135%;
     background-color: #d5d8ea;
     border-radius: 1rem;
     padding: 3rem;
