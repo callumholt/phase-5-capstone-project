@@ -70,37 +70,29 @@ end
     puts "this is the workoutCreateData sessionDuration: #{sessionDuration}"
     puts "this is the workoutCreateData injuries: #{injuries}"
   
-    api_key2 = ENV['OPEN_AI_KEY']
+    api_key2 = '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'
 
     url = URI('https://api.openai.com/v1/chat/completions')
     api_key1 = ENV['OPEN_AI_KEY']
     
     
-    puts "API Key: #{api_key1}"
+    puts "API Key: #{api_key2}"
 
     headers = {
       'Content-Type' => 'application/json',
-      'Authorization' => "Bearer #{api_key1}"
+      'Authorization' => "Bearer #{api_key2}",
     }
     
     # Define the message parameters
     messages = [
       {
         "role": "system",
-        "content": "Generate JSON data for a workout plan for a user based on the details provided by user.\n\nall exercises must have reps and weight.\n\nReturn the JSON data using the structure below as an example:\n\nPlease ensure you use different exercises than those in the example.\n\n{{\"user_id\": 4,\"name\":\"User: Bruce - Workout\",\"day\":[{\"id\":1,\"dayNumber\":1,\"exercises\":[{\"id\":1,\"name\":\"Bench Press\",\"prescribed_sets\":[{\"id\":1,\"weight\":\"80.0\",\"reps\":3},{\"id\":2,\"weight\":\"85.0\",\"reps\":3},{\"id\":3,\"weight\":\"90.0\",\"reps\":3}]},{\"id\":2,\"name\":\"Deadlift\",\"prescribed_sets\":[{\"id\":4,\"weight\":\"100.0\",\"reps\":5},{\"id\":5,\"weight\":\"105.0\",\"reps\":5}]}]},{\"id\":2,\"dayNumber\":2,\"exercises\":[{\"id\":3,\"name\":\"Back Squats\",\"prescribed_sets\":[{\"id\":6,\"weight\":\"80.0\",\"reps\":3},{\"id\":7,\"weight\":\"85.0\",\"reps\":3},{\"id\":8,\"weight\":\"90.0\",\"reps\":3}]},{\"id\":4,\"name\":\"Pull-Ups\",\"prescribed_sets\":[{\"id\":9,\"weight\":\"100.0\",\"reps\":5},{\"id\":10,\"weight\":\"105.0\",\"reps\":5}]}]},{\"id\":3,\"dayNumber\":3,\"exercises\":[{\"id\":5,\"name\":\"Push Press\",\"prescribed_sets\":[{\"id\":11,\"weight\":\"80.0\",\"reps\":3},{\"id\":12,\"weight\":\"85.0\",\"reps\":3},{\"id\":13,\"weight\":\"90.0\",\"reps\":3}]},{\"id\":6,\"name\":\"Barbell Rows\",\"prescribed_sets\":[{\"id\":14,\"weight\":\"100.0\",\"reps\":5},{\"id\":15,\"weight\":\"105.0\",\"reps\":5}]}]},{\"id\":4,\"dayNumber\":4,\"exercises\":[{\"id\":7,\"name\":\"Leg Press\",\"prescribed_sets\":[{\"id\":16,\"weight\":\"80.0\",\"reps\":3},{\"id\":17,\"weight\":\"85.0\",\"reps\":3},{\"id\":18,\"weight\":\"90.0\",\"reps\":3}]},{\"id\":8,\"name\":\"Chest Flyes\",\"prescribed_sets\":[{\"id\":19,\"weight\":\"100.0\",\"reps\":5},{\"id\":20,\"weight\":\"105.0\",\"reps\":5}]}]},{\"id\":5,\"dayNumber\":5,\"exercises\":[{\"id\":9,\"name\":\"Dumbbell Curls\",\"prescribed_sets\":[{\"id\":21,\"weight\":\"80.0\",\"reps\":3},{\"id\":22,\"weight\":\"85.0\",\"reps\":3},{\"id\":23,\"weight\":\"90.0\",\"reps\":3}]},{\"id\":10,\"name\":\"Tricep Dips\",\"prescribed_sets\":[{\"id\":24,\"weight\":\"100.0\",\"reps\":5},{\"id\":25,\"weight\":\"105.0\",\"reps\":5}]}]}]}}"
+        "content": "Return the output as JSON for a workout plan for a user based on the details provided by user.\n\nall exercises must have reps and weight.\n\nReturn the JSON data using the structure below as an example:\n\nPlease ensure you use different exercises than those in the example.\n\n{{\"user_id\": 4,\"name\":\"User: Bruce - Workout\",\"day\":[{\"id\":1,\"dayNumber\":1,\"exercises\":[{\"id\":1,\"name\":\"Bench Press\",\"prescribed_sets\":[{\"id\":1,\"weight\":\"80.0\",\"reps\":3},{\"id\":2,\"weight\":\"85.0\",\"reps\":3},{\"id\":3,\"weight\":\"90.0\",\"reps\":3}]},{\"id\":2,\"name\":\"Deadlift\",\"prescribed_sets\":[{\"id\":4,\"weight\":\"100.0\",\"reps\":5},{\"id\":5,\"weight\":\"105.0\",\"reps\":5}]}]},{\"id\":2,\"dayNumber\":2,\"exercises\":[{\"id\":3,\"name\":\"Back Squats\",\"prescribed_sets\":[{\"id\":6,\"weight\":\"80.0\",\"reps\":3},{\"id\":7,\"weight\":\"85.0\",\"reps\":3},{\"id\":8,\"weight\":\"90.0\",\"reps\":3}]},{\"id\":4,\"name\":\"Pull-Ups\",\"prescribed_sets\":[{\"id\":9,\"weight\":\"100.0\",\"reps\":5},{\"id\":10,\"weight\":\"105.0\",\"reps\":5}]}]},{\"id\":3,\"dayNumber\":3,\"exercises\":[{\"id\":5,\"name\":\"Push Press\",\"prescribed_sets\":[{\"id\":11,\"weight\":\"80.0\",\"reps\":3},{\"id\":12,\"weight\":\"85.0\",\"reps\":3},{\"id\":13,\"weight\":\"90.0\",\"reps\":3}]},{\"id\":6,\"name\":\"Barbell Rows\",\"prescribed_sets\":[{\"id\":14,\"weight\":\"100.0\",\"reps\":5},{\"id\":15,\"weight\":\"105.0\",\"reps\":5}]}]},{\"id\":4,\"dayNumber\":4,\"exercises\":[{\"id\":7,\"name\":\"Leg Press\",\"prescribed_sets\":[{\"id\":16,\"weight\":\"80.0\",\"reps\":3},{\"id\":17,\"weight\":\"85.0\",\"reps\":3},{\"id\":18,\"weight\":\"90.0\",\"reps\":3}]},{\"id\":8,\"name\":\"Chest Flyes\",\"prescribed_sets\":[{\"id\":19,\"weight\":\"100.0\",\"reps\":5},{\"id\":20,\"weight\":\"105.0\",\"reps\":5}]}]},{\"id\":5,\"dayNumber\":5,\"exercises\":[{\"id\":9,\"name\":\"Dumbbell Curls\",\"prescribed_sets\":[{\"id\":21,\"weight\":\"80.0\",\"reps\":3},{\"id\":22,\"weight\":\"85.0\",\"reps\":3},{\"id\":23,\"weight\":\"90.0\",\"reps\":3}]},{\"id\":10,\"name\":\"Tricep Dips\",\"prescribed_sets\":[{\"id\":24,\"weight\":\"100.0\",\"reps\":5},{\"id\":25,\"weight\":\"105.0\",\"reps\":5}]}]}]}}"
       },
       {
         "role": "user",
         "content": "Please create a workout designed for the user below:\n\nname: #{userName}\nuser_id: #{userId}\nFitness goals: #{goal}\nTraining experience: #{experience}\nDays per week to train: #{sessionsPerWeek}\nTime for each training session: #{sessionDuration} minutes\nInjuries: #{injuries}\n"
-      }
-    ]
-
-    messages2 = [
-      
-      {
-        "role": "user",
-        "content": "Please give me a list of 300 movie names"
-      }
+      },
     ]
 
     
@@ -110,15 +102,20 @@ end
 
     puts "request sent"
 
+    # gpt-4-1106-preview
+    # gpt-3.5-turbo-1106
+    
     request.body = {
-      model: 'gpt-4',
+      model: 'gpt-4-1106-preview',
       messages: messages,
       temperature: 1,
       max_tokens: 3000,
       top_p: 1,
       frequency_penalty: 0,
-      presence_penalty: 0
-    }.to_json
+      presence_penalty: 0,
+      response_format: { "type":"json_object" }
+
+      }.to_json
     puts "this is the request: #{request.body}"
     request.initialize_http_header(headers)
 
