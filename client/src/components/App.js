@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useHistory } from "react-router-dom";
 import SignUp from "./SignUp";
 import Login from "./Login";
 import NavBar from "./NavBar";
 import Home from "./Home";
 import WorkoutProfiles from "./WorkoutProfiles";
 import NewWorkout from "./NewWorkout";
+import Pricing from "./Pricing";
+import BuyButtonSingle from "./BuyButtonSingle";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -35,6 +37,11 @@ function App() {
                     element={<WorkoutProfiles user={user} />}
                   />
                   <Route path="/NewWorkout" element={<NewWorkout />} />
+                  <Route path="/Pricing" element={<Pricing user={user} />} />
+                  <Route
+                    path="/BuySingle"
+                    element={<BuyButtonSingle user={user} />}
+                  />
                 </>
               ) : (
                 <>
@@ -44,6 +51,10 @@ function App() {
                   />
                   <Route path="/login" element={<Login setUser={setUser} />} />
                   <Route path="/" element={<Home />} />
+                  <Route
+                    path="/BuySingle"
+                    element={<BuyButtonSingle user={user} />}
+                  />
                 </>
               )}
             </Routes>

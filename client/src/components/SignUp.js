@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { redirect, useHistory } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 
 function SignUp({ user, setUser }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [redirect, setRedirect] = useState(false);
-
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const navigate = useNavigate();
 
   useEffect(
     (redirect) => {
@@ -40,7 +40,8 @@ function SignUp({ user, setUser }) {
       if (r.ok) {
         return r.json().then((user) => {
           setUser(user);
-          setRedirect(true);
+          navigate("/Pricing"); // Redirects to the pricing page
+
           console.log("the user (signup comp) is: ", user);
           console.log("user truthy?: ", user ? "truthy" : "falsy");
         });
