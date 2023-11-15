@@ -15,9 +15,13 @@ function Pricing() {
         {/* <button onClick={() => handleStripeRedirect("price_1")}>
           Get Started
         </button> */}
-        <stripe-buy-button
+        {/* <stripe-buy-button
           buy-button-id="buy_btn_1OC68ALdLQbSE7KKA7A6xdzz"
           publishable-key="pk_live_51JjzAZLdLQbSE7KKSYbSTnASlew56L9Hu5LY8IFG9VR9CWiVHH0yfqDsdrzT3j0WMMS2viYD7xLQlRozSJYwNl7R0047KJ59PS"
+        ></stripe-buy-button> */}
+        <stripe-buy-button
+          buy-button-id="buy_btn_1OCfYULdLQbSE7KKtvmsl0tW"
+          publishable-key="pk_test_51JjzAZLdLQbSE7KKKWKJV2RvfYwXsrPduRfBCVElxKF2f4aM67w8dcqGVIJbGFrTl87Wc6CgbqzyEw7XJQGow02q00shJFUjTN"
         ></stripe-buy-button>
       </div>
       <div className="pricing-card">
