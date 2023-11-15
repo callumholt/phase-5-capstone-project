@@ -36,6 +36,10 @@ Rails.application.routes.draw do
   post '/openai', to: 'workouts#openAiCall'
 
 
+  post '/stripe_webhook', to: 'stripe_customers#webhook'
+
+
+
 
 
 
