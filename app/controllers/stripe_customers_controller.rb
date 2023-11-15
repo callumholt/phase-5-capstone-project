@@ -7,36 +7,43 @@ class StripeCustomersController < ApplicationController
           event = nil
       
           begin
-            event = Stripe::Webhook.construct_event(
-              payload, sig_header, Rails.application.credentials.stripe[:signing_secret]
+            event = Stripe::Event.construct_from(
+              JSON.parse(payload, symbolize_names: true)
             )
-          rescue JSON::ParserError, Stripe::SignatureVerificationError => e
-            render json: { error: e.message }, status: :bad_request
+          rescue JSON::ParserError => e
+            # Invalid payload
+            puts "⚠️  Webhook error while parsing basic request. #{e.message}"
+            status 400
             return
           end
+        
       
           # Handle the event
-          case event.type
-          when 'customer.created'
-            handle_customer_created(event.data.object)
-          else
-            puts "Unhandled event type: #{event.type}"
-          end
-      
-          render json: { message: 'success' }, status: :ok
-        end
+    case event.type
+    when 'customer.created'
+      customer = event.data.object # Extracting the customer data from the event
+      handle_customer_created(customer)
+    else
+      puts "Unhandled event type: #{event.type}"
+    end
+
+    render json: { message: 'success' }, status: :ok
+  end
       
         private
       
         def handle_customer_created(customer)
-            # Create a new StripeCustomer record with the data received from the Stripe event
-            StripeCustomer.create(
-              email: customer.email,
-              name: customer.name
-            )
+            # Check if email and name are present before creating a record
+            if customer.email.present? && customer.name.present?
+              StripeCustomer.create(email: customer.email, name: customer.name)
+            else
+              # Handle the case where email or name is missing
+              Rails.logger.warn "Received a customer.created event with missing email or name: #{customer.inspect}"
+              # You might want to raise an error or take some other action here
+            end
+          end
           
-        end
-      end
+    end
       
 
 
