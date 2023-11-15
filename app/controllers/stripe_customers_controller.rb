@@ -21,8 +21,11 @@ class StripeCustomersController < ApplicationController
           # Handle the event
     case event.type
     when 'customer.created'
-      customer = event.data.object # Extracting the customer data from the event
-      handle_customer_created(customer)
+        customer = event.data.object # Extracting the customer data from the event
+        handle_customer_created(customer)
+    when 'customer.subscription.created'
+        subscription = event.data.object
+        handle_subscription_created(subscription)
     else
       puts "Unhandled event type: #{event.type}"
     end
@@ -35,13 +38,18 @@ class StripeCustomersController < ApplicationController
         def handle_customer_created(customer)
             # Check if email and name are present before creating a record
             if customer.email.present? && customer.name.present?
-              StripeCustomer.create(email: customer.email, name: customer.name)
+              StripeCustomer.create(email: customer.email, name: customer.name, stripe_customer_id: customer.id)
             else
               # Handle the case where email or name is missing
               Rails.logger.warn "Received a customer.created event with missing email or name: #{customer.inspect}"
               # You might want to raise an error or take some other action here
             end
           end
+        
+        def handle_subscription_created(subscription)
+            # Check if email and name are present before creating a record
+            # Update user table, set 'subscribed' to TRUE
+        end
           
     end
       
