@@ -1,40 +1,10 @@
-class StripeCustomer < ApplicationController
-    # skip_before_action :verify_authenticity_token
+class StripeCustomer < ApplicationRecord
+    # You can add validations, associations, or custom methods here if needed
   
-    def webhook
-      payload = request.body.read
-      sig_header = request.env['HTTP_STRIPE_SIGNATURE']
-      event = nil
+    # For example, basic validations might include:
+    validates :email, presence: true
+    validates :name, presence: true
   
-      begin
-        event = Stripe::Webhook.construct_event(
-          payload, sig_header, Rails.application.credentials.stripe[:signing_secret]
-        )
-      rescue JSON::ParserError, Stripe::SignatureVerificationError => e
-        render json: { error: e.message }, status: :bad_request
-        return
-      end
-  
-      # Handle the event
-      case event.type
-      when 'customer.created'
-        handle_customer_created(event.data.object)
-      else
-        puts "Unhandled event type: #{event.type}"
-      end
-  
-      render json: { message: 'success' }, status: :ok
-    end
-  
-    private
-  
-    def handle_customer_created(customer)
-        # Create a new StripeCustomer record with the data received from the Stripe event
-        StripeCustomer.create(
-          email: customer.email,
-          name: customer.name
-        )
-      
-    end
+    # Add any other model-level logic you require.
   end
   
