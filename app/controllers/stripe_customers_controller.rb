@@ -54,16 +54,12 @@ class StripeCustomersController < ApplicationController
             stripe_customer = StripeCustomer.find_by(stripe_customer_id: stripe_customer_id)
           
             if stripe_customer.present?
-              # Assuming there's an association to a User record, like stripe_customer.user
+              # Assuming there's an association to a User record
               user = stripe_customer.user
           
               if user.present?
-                # Determine the new subscription status
-                # You may need to adjust this logic based on how you determine subscription status
-                new_subscribed_status = determine_subscription_status(subscription)
-          
-                # Update the user's 'subscribed' status
-                user.update(subscribed: new_subscribed_status)
+                # Update the user's 'subscribed' status to true
+                user.update(subscribed: true)
               else
                 # Handle the case where there's no associated User record
                 Rails.logger.warn "No associated user found for Stripe customer ID #{stripe_customer_id}"
@@ -76,13 +72,6 @@ class StripeCustomersController < ApplicationController
             end
           end
           
-          private
-          
-          def determine_subscription_status(subscription)
-            # Implement logic to determine subscription status based on the subscription object
-            # This might depend on specific fields in the subscription object like 'status'
-            subscription.status == 'active'
-          end
           
           
     end
