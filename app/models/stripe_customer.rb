@@ -4,6 +4,8 @@ class StripeCustomer < ApplicationRecord
     # For example, basic validations might include:
     validates :email, presence: true
     validates :name, presence: true
+    belongs_to :user
+
   
     # Add any other model-level logic you require.
   end
