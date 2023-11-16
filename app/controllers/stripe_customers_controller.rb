@@ -23,9 +23,9 @@ class StripeCustomersController < ApplicationController
     when 'customer.created'
         customer = event.data.object # Extracting the customer data from the event
         handle_customer_created(customer)
-    when 'customer.subscription.updated'
+    when 'checkout.session.completed'
         subscription = event.data.object
-        handle_subscription_updated(subscription)
+        handle_checkout_session_completed(subscription)
     else
       puts "Unhandled event type: #{event.type}"
     end
@@ -46,14 +46,18 @@ class StripeCustomersController < ApplicationController
             end
           end
         
-          def handle_subscription_updated(subscription)
-            # Extract the Stripe customer ID from the subscription
-            stripe_customer_id = subscription.customer
+          def handle_checkout_session_completed(checkout_session)
+            # Extract the Stripe customer ID and email from the checkout session
+            stripe_customer_id = checkout_session.customer
+            customer_email = checkout_session.customer_details.email
           
             # Find the StripeCustomer record associated with this Stripe customer ID
             stripe_customer = StripeCustomer.find_by(stripe_customer_id: stripe_customer_id)
           
             if stripe_customer.present?
+              # Update the StripeCustomer record with the latest email (if it's available)
+              stripe_customer.update(email: customer_email) if customer_email.present?
+          
               # Assuming there's an association to a User record
               user = stripe_customer.user
           
@@ -71,6 +75,7 @@ class StripeCustomersController < ApplicationController
               # Additional error handling...
             end
           end
+          
           
           
           
