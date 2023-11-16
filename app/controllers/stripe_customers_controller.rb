@@ -35,30 +35,24 @@ class StripeCustomersController < ApplicationController
       
         private
       
-        def handle_customer_created(customer)
-            # Check if email and name are present before creating a record
-            if customer.email.present? && customer.name.present?
-              StripeCustomer.create(email: customer.email, name: customer.name, stripe_customer_id: customer.id)
-            else
-              # Handle the case where email or name is missing
-              Rails.logger.warn "Received a customer.created event with missing email or name: #{customer.inspect}"
-              # You might want to raise an error or take some other action here
-            end
-          end
         
-          def handle_checkout_session_completed(checkout_session)
-            # Extract the Stripe customer ID and email from the checkout session
+        
+        def handle_checkout_session_completed(checkout_session)
+            # Extract the Stripe customer ID, email, and name from the checkout session
             stripe_customer_id = checkout_session.customer
             customer_email = checkout_session.customer_details.email
+            customer_name = checkout_session.customer_details.name
           
-            # Find the StripeCustomer record associated with this Stripe customer ID
-            stripe_customer = StripeCustomer.find_by(stripe_customer_id: stripe_customer_id)
+            # Find or initialize a StripeCustomer record
+            stripe_customer = StripeCustomer.find_or_initialize_by(stripe_customer_id: stripe_customer_id)
           
-            if stripe_customer.present?
-              # Update the StripeCustomer record with the latest email (if it's available)
-              stripe_customer.update(email: customer_email) if customer_email.present?
+            # Update email and name if available
+            stripe_customer.email = customer_email if customer_email.present?
+            stripe_customer.name = customer_name if customer_name.present?
           
-              # Assuming there's an association to a User record
+            # Save the StripeCustomer record
+            if stripe_customer.save
+              # Check if there's an associated User record
               user = stripe_customer.user
           
               if user.present?
@@ -70,14 +64,10 @@ class StripeCustomersController < ApplicationController
                 # Additional error handling...
               end
             else
-              # Handle the case where no StripeCustomer is found for the given Stripe customer ID
-              Rails.logger.warn "No StripeCustomer found for Stripe customer ID #{stripe_customer_id}"
-              # Additional error handling...
+              # Handle save failure, e.g., log errors or take other actions
+              Rails.logger.error "Failed to save StripeCustomer record for ID #{stripe_customer_id}"
             end
-          end
-          
-          
-          
+        end
           
     end
       
