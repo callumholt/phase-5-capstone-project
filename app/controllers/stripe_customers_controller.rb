@@ -33,36 +33,45 @@ class StripeCustomersController < ApplicationController
         private
         
         def handle_checkout_session_completed(checkout_session)
-          # Extract the Stripe customer ID, email, and name from the checkout session
-          stripe_customer_id = checkout_session.customer
-          customer_email = checkout_session.customer_details.email
-          customer_name = checkout_session.customer_details.name
-        
-          # Find or initialize a StripeCustomer record
-          stripe_customer = StripeCustomer.find_or_initialize_by(stripe_customer_id: stripe_customer_id)
-        
-          # Update email and name if available
-          stripe_customer.email = customer_email if customer_email.present?
-          stripe_customer.name = customer_name if customer_name.present?
-        
-          # Save the StripeCustomer record
-          if stripe_customer.save
-            # Check if there's an associated User record
-            user = stripe_customer.user
-        
+            # Extract the Stripe customer ID, email, and name from the checkout session
+            stripe_customer_id = checkout_session.customer
+            customer_email = checkout_session.customer_details.email
+            customer_name = checkout_session.customer_details.name
+          
+            puts "email is: #{customer_email}"
+            puts "name is: #{customer_name}"
+          
+            # Find the user by email
+            user = User.find_by(email: customer_email)
+          
             if user.present?
-              # Update the user's 'subscribed' status to true
-              user.update(subscribed: true)
+              # Find or initialize a StripeCustomer record
+              stripe_customer = StripeCustomer.find_or_initialize_by(stripe_customer_id: stripe_customer_id)
+          
+              puts "stripe customer is: #{stripe_customer.attributes}"
+          
+              # Update StripeCustomer with user and email, name if available
+              stripe_customer.user = user
+              stripe_customer.email = customer_email if customer_email.present?
+              stripe_customer.name = customer_name if customer_name.present?
+          
+              puts "stripe customer after update is: #{stripe_customer.attributes}"
+          
+              # Save the StripeCustomer record
+              if stripe_customer.save
+                # Update the user's 'subscribed' status to true
+                user.update(subscribed: true)
+              else
+                # Handle save failure, e.g., log errors or take other actions
+                Rails.logger.error "Failed to save StripeCustomer record for ID #{stripe_customer_id}"
+              end
             else
               # Handle the case where there's no associated User record
-              Rails.logger.warn "No associated user found for Stripe customer ID #{stripe_customer_id}"
+              Rails.logger.warn "No user found with email #{customer_email}"
               # Additional error handling...
             end
-          else
-            # Handle save failure, e.g., log errors or take other actions
-            Rails.logger.error "Failed to save StripeCustomer record for ID #{stripe_customer_id}"
           end
-        end
+          
         
           
     end
